@@ -1,0 +1,26 @@
+.spinner-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  position: relative;
+  margin: 40px auto;
+}
+.spinner-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #2563eb;
+  position: absolute;
+  animation: spinner-move 1.2s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+}
+.spinner-dot1 { left: 0; top: 50%; transform: translateY(-50%); animation-delay: 0s; }
+.spinner-dot2 { top: 0; left: 50%; transform: translateX(-50%); animation-delay: 0.3s; }
+.spinner-dot3 { right: 0; top: 50%; transform: translateY(-50%); animation-delay: 0.6s; }
+.spinner-dot4 { bottom: 0; left: 50%; transform: translateX(-50%); animation-delay: 0.9s; }
+
+@keyframes spinner-move {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.5); }
+}
