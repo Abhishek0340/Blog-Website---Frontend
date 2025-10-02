@@ -31,7 +31,7 @@ const Login = () => {
     }
     setError("");
     try {
-      const res = await fetch("http://localhost:5000/api/login", {
+      const res = await fetch("https://blog-website-backend-wcn7.onrender.com/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
