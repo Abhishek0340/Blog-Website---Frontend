@@ -27,7 +27,7 @@ const ViewPost = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await fetch("https://blog-website-backend-wcn7.onrender.com");
+        const res = await fetch("https://blog-website-backend-wcn7.onrender.com/api/posts");
         if (!res.ok) throw new Error('Failed to fetch posts');
         const data = await res.json();
         const found = data.find((p) => p._id === id);
