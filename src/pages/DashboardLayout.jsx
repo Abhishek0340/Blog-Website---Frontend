@@ -41,11 +41,11 @@ const DashboardLayout = ({ children }) => {
     <>
       <Navbar />
 
-      <div className="flex min-h-screen bg-gray-50 relative">
+      <div className="flex min-h-screen  relative">
         {/* Sidebar */}
         <aside
-          className={`fixed md:static top-0 left-0 h-full md:h-auto z-20 bg-white border-r border-gray-200 shadow-lg transform transition-transform duration-300 
-          w-64 md:w-56
+          className={`fixed md:static top-0 left-0 h-full md:h-auto z-20 bg-white border-r border-gray-200  transform transition-transform duration-300 
+          w-3xs md:w-56
           ${drawerOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}
         >
           {/* Profile Section */}

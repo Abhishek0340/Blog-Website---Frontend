@@ -3,14 +3,13 @@ import { Helmet } from "react-helmet";
 import DashboardLayout from "./DashboardLayout";
 import { FiFileText, FiTag, FiMessageSquare, FiUsers } from "react-icons/fi";
 import { Link } from "react-router-dom";
-
+import  Spinner from "../components/Spinner"
 
 const Dashboard = () => {
   const [stats, setStats] = useState({ posts: 0, categories: 0, users: 0, comments: 0 });
   const [recentPosts, setRecentPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const dashboardTitle = "Dashboard | Blog Website";
-  const dashboardDescription = "View your blog stats, recent posts, and manage your content on the Blog Website dashboard.";
+  const dashboardDescription = "View your blog stats, recent posts, and manage your content on the trendyblogs dashboard.";
 
 
   useEffect(() => {
@@ -45,11 +44,11 @@ const Dashboard = () => {
   return (
     <>
       <Helmet>
-        <title>{dashboardTitle}</title>
-        <meta name="description" content={dashboardDescription} />
+        <title>Dashboard | trendyblogs</title>
+        <meta name="description" content='View your blog stats, recent posts, and manage your content on the trendyblogs dashboard.' />
         <meta name="keywords" content="dashboard, blog, stats, manage, posts, categories" />
-        <meta property="og:title" content={dashboardTitle} />
-        <meta property="og:description" content={dashboardDescription} />
+        <meta property="og:title" content='Dashboard | trendyblogs' />
+        <meta property="og:description" content='View your blog stats, recent posts, and manage your content on the trendyblogs dashboard.' />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://yourblogwebsite.com/dashboard" />
         <meta property="og:image" content="/public/og-image.png" />
@@ -94,7 +93,9 @@ const Dashboard = () => {
               Recent Posts
             </h3>
             {loading ? (
-              <div className="text-gray-500">Loading...</div>
+              <div className="text-gray-500">
+                <Spinner />
+              </div>
             ) : (
               <ul className="divide-y divide-gray-200">
                 {recentPosts.map(post => (

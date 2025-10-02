@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { FiGrid, FiLogOut } from "react-icons/fi";
 
 const navLinks = [
   { name: "Home", to: "/", icon: "🏠" },
@@ -12,150 +13,93 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const isAuthenticated = !!localStorage.getItem("authToken");
 
-
   return (
-    <>
-      <style>{`
-        .navbar {
-          width: 100%;
-          background: #fff;
-          border-bottom: 1px solid #ececec;
-          position: sticky;
-          top: 0;
-          z-index: 100;
-        }
-        .navbar-inner {
-          max-width: 1200px;
-          margin: 0 auto;
-          display: grid;
-          grid-template-columns: 1fr 2fr 1fr;
-          align-items: center;
-          padding: 0.7rem 1.5rem;
-        }
-        .navbar-logo {
-          font-weight: 700;
-          font-size: 1.8rem;
-          color: #222;
-          text-decoration: none;
-        }
-        .navbar-links {
-          display: flex;
-          justify-content: center;
-          gap: 1.2rem;
-        }
-        .navbar-link {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          color: #444;
-          text-decoration: none;
-          font-weight: 500;
-          font-size: 1.08rem;
-          border-radius: 6px;
-          padding: 0.45rem 1rem;
-          transition: background 0.18s, color 0.18s;
-        }
-        .navbar-link:hover {
-          background: #f5f5f5;
-          color: #222;
-        }
-        .navbar-actions {
-          display: flex;
-          justify-content: flex-end;
-          gap: 0.5rem;
-        }
-        .navbar-btn {
-          background: #f5f5f5;
-          color: #222;
-          border: none;
-          border-radius: 6px;
-          padding: 0.5rem 1.2rem;
-          cursor: pointer;
-          font-weight: 500;
-          transition: background 0.18s, color 0.18s;
-        }
-        .navbar-btn:hover {
-          background: #222;
-          color: #fff;
-        }
-        .navbar-toggle {
-          display: none;
-          background: none;
-          border: none;
-          font-size: 2rem;
-          color: #222;
-          cursor: pointer;
-        }
-        @media (max-width: 900px) {
-          .navbar-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-          }
-          .navbar-toggle {
-            display: block;
-          }
-          .navbar-links,
-          .navbar-actions {
-            flex-direction: column;
-            align-items: stretch;
-            gap: 0.8rem;
-            background: #fff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            position: absolute;
-            top: 60px;
-            left: 0;
-            width: 100vw;
-            padding: 1rem;
-            transition: max-height 0.35s, opacity 0.25s;
-            z-index: 100;
-          }
-          .navbar-links,
-          .navbar-actions {
-            max-height: 0;
-            overflow: hidden;
-            opacity: 0;
-            pointer-events: none;
-          }
-          .open {
-            max-height: 600px;
-            opacity: 1;
-            pointer-events: auto;
-          }
+    <header className="w-full bg-white border-b border-gray-200 sticky top-0 z-50">
+      <div className="max-w-[1400px] mx-auto flex items-center justify-between px-6 py-3 relative">
+        {/* Logo */}
+        <Link to="/" className="flex items-center">
+          <img
+            srcSet="https://i.ibb.co/jZ4sVWWt/image-logo.png"
+            alt="trendyblogs - logo"
+            className="h-10 w-auto"
+          />
+        </Link>
 
-          /* 👇 Fix order for mobile */
-          .navbar-actions {
-            order: 2;
-            width: 100%;
-            flex-direction: column;
-            margin-top: 30%;
-          }
-          .navbar-links {
-            order: 1;
-          }
+        {/* Desktop Links */}
+        <nav className={`hidden md:flex flex-1 justify-center gap-4`}>
+          {navLinks.map((link) => (
+            <Link
+              key={link.to}
+              to={link.to}
+              className="flex items-center gap-2 text-gray-700 font-medium px-4 py-2 rounded-md hover:bg-gray-100 hover:text-gray-900 transition"
+            >
+              <span>{link.icon}</span>
+              {link.name}
+            </Link>
+          ))}
+        </nav>
 
-          /* Make buttons full-width in mobile */
-          .navbar-btn {
-            width: 100%;
-            text-align: center;
-          }
-        }
-      `}</style>
+        {/* Desktop Actions */}
+        <div className="hidden md:flex items-center gap-2">
+          {isAuthenticated ? (
+            <>
+              <Link
+                to="/dashboard"
+                className="flex items-center gap-2 bg-gray-100 text-gray-900 px-4 py-2 rounded-md font-medium hover:bg-gray-900 hover:text-white transition"
+              >
+                <FiGrid className="text-lg" />
+                Dashboard
+              </Link>
+              <button
+                className="flex items-center gap-2 bg-gray-100 text-gray-900 px-4 py-2 rounded-md font-medium hover:bg-gray-900 hover:text-white transition"
+                onClick={() => {
+                  localStorage.removeItem("authToken");
+                  window.location.href = "/login";
+                }}
+              >
+                <FiLogOut className="text-lg" />
+                
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="bg-gray-100 text-gray-900 px-4 py-2 rounded-md font-medium hover:bg-gray-900 hover:text-white transition"
+              >
+                Login
+              </Link>
+              <Link
+                to="/register"
+                className="bg-gray-100 text-gray-900 px-4 py-2 rounded-md font-medium hover:bg-gray-900 hover:text-white transition"
+              >
+                Register
+              </Link>
+            </>
+          )}
+        </div>
 
-      <header className="navbar">
-        <div className="navbar-inner">
-          {/* Logo */}
-          <Link to="/" className="navbar-logo">
-            Blogify
-          </Link>
+        {/* Mobile Toggle */}
+        <button
+          className="md:hidden text-3xl text-gray-900 focus:outline-none"
+          onClick={() => setMenuOpen((m) => !m)}
+          aria-label="Toggle menu"
+        >
+          {menuOpen ? "✖" : "☰"}
+        </button>
 
-          {/* Desktop / Mobile Links */}
-          <nav className={`navbar-links ${menuOpen ? "open" : ""}`}>
+        {/* Mobile Menu */}
+        <div
+          className={`absolute left-0 top-full w-full bg-white shadow-md flex flex-col items-stretch gap-2 px-6 py-4 transition-all duration-300 z-40 ${
+            menuOpen ? "max-h-[600px] opacity-100 pointer-events-auto" : "max-h-0 opacity-0 pointer-events-none"
+          } md:hidden`}
+        >
+          <nav className="flex flex-col gap-2">
             {navLinks.map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
-                className="navbar-link"
+                className="flex items-center gap-2 text-gray-700 font-medium px-4 py-2 rounded-md hover:bg-gray-100 hover:text-gray-900 transition"
                 onClick={() => setMenuOpen(false)}
               >
                 <span>{link.icon}</span>
@@ -163,47 +107,50 @@ const Navbar = () => {
               </Link>
             ))}
           </nav>
-
-          {/* Actions */}
-          <div className={`navbar-actions ${menuOpen ? "open" : ""}`}>
+          <div className="flex flex-col gap-2 mt-4">
             {isAuthenticated ? (
               <>
-                <button className="navbar-btn">
-                  <Link to="/dashboard">Dashboard</Link>
-                </button>
+                <Link
+                  to="/dashboard"
+                  className="flex items-center gap-2 bg-gray-100 text-gray-900 px-4 py-2 rounded-md font-medium hover:bg-gray-900 hover:text-white transition"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <FiGrid className="text-lg" />
+                  Dashboard
+                </Link>
                 <button
-                  className="navbar-btn"
+                  className="flex items-center gap-2 bg-gray-100 text-gray-900 px-4 py-2 rounded-md font-medium hover:bg-gray-900 hover:text-white transition"
                   onClick={() => {
                     localStorage.removeItem("authToken");
                     window.location.href = "/login";
                   }}
                 >
-                  LogOut
+                  <FiLogOut className="text-lg" />
+                  Logout
                 </button>
               </>
             ) : (
               <>
-                <button className="navbar-btn">
-                  <Link to='/login'>Login</Link>
-                </button>
-                <button className="navbar-btn">
-                  <Link to='/register'>Register</Link>
-                </button>
+                <Link
+                  to="/login"
+                  className="bg-gray-100 text-gray-900 px-4 py-2 rounded-md font-medium hover:bg-gray-900 hover:text-white transition"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/register"
+                  className="bg-gray-100 text-gray-900 px-4 py-2 rounded-md font-medium hover:bg-gray-900 hover:text-white transition"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Register
+                </Link>
               </>
             )}
           </div>
-
-          {/* Mobile Toggle */}
-          <button
-            className="navbar-toggle"
-            onClick={() => setMenuOpen((m) => !m)}
-            aria-label="Toggle menu"
-          >
-            {menuOpen ? "✖" : "☰"}
-          </button>
         </div>
-      </header>
-    </>
+      </div>
+    </header>
   );
 };
 

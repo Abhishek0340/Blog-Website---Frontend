@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import DashboardLayout from './DashboardLayout';
+import Spinner from '../components/Spinner';
+import { CiEdit } from "react-icons/ci";
+import { RiDeleteBin2Line, RiSave2Line } from "react-icons/ri";
+import { FcCancel } from "react-icons/fc";
+
+
+
 
 const ManagePost = () => {
   const [posts, setPosts] = useState([]);
@@ -75,25 +82,28 @@ const ManagePost = () => {
 
   return (
     <DashboardLayout>
-      <div className="w-full max-w-7xl mx-auto bg-gradient-to-br from-gray-50 via-white to-gray-100 rounded p-10 mt-10 border border-gray-200">
-        <h2 className="text-3xl font-extrabold mb-8 text-gray-900 text-center tracking-tight">Manage Your Posts</h2>
+      <div className='p-6'>
+        <h1 className="text-2xl font-bold text-gray-800 mb-6">
+            Manage your Blog Posts!
+          </h1>
+      <div className="w-full  mx-auto  rounded  border border-gray-200">
         {loading ? (
-          <div className="text-center text-gray-500">Loading...</div>
+          <div className="text-center text-gray-500"><Spinner /></div>
         ) : error ? (
           <div className="text-center text-red-500">{error}</div>
         ) : posts.length === 0 ? (
           <div className="text-center text-gray-500">No posts found for your account.</div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="min-w-full bg-white border border-gray-200 rounded-lg">
+            <table className="w-full bg-white border border-gray-200 rounded-md">
               <thead>
                 <tr>
-                  <th className="px-4 py-2 border-b">Title</th>
-                  <th className="px-4 py-2 border-b">Category</th>
-                  <th className="px-4 py-2 border-b">Date</th>
+                  <th className="px-2 py-2 border-b">Title</th>
+                  <th className="px-2 py-2 border-b">Category</th>
+                  <th className="px-2 py-2 border-b">Date</th>
                   <th className="px-4 py-2 border-b">Description</th>
-                  <th className="px-4 py-2 border-b">Keywords</th>
-                  <th className="px-4 py-2 border-b">Actions</th>
+                  <th className="px-2 py-2 border-b">Keywords</th>
+                  <th className="px-2 py-2 border-b">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -101,26 +111,36 @@ const ManagePost = () => {
                   <tr key={post._id}>
                     {editPost === post._id ? (
                       <>
-                        <td className="px-4 py-2 border-b"><input name="title" value={editForm.title} onChange={handleEditChange} className="border px-2 py-1 rounded w-full" /></td>
-                        <td className="px-4 py-2 border-b"><input name="category" value={editForm.category} onChange={handleEditChange} className="border px-2 py-1 rounded w-full" /></td>
-                        <td className="px-4 py-2 border-b"><input name="createdAt" value={editForm.createdAt ? new Date(editForm.createdAt).toISOString().slice(0,10) : ''} onChange={handleEditChange} className="border px-2 py-1 rounded w-full" type="date" /></td>
-                        <td className="px-4 py-2 border-b"><input name="content" value={editForm.content} onChange={handleEditChange} className="border px-2 py-1 rounded w-full" /></td>
-                        <td className="px-4 py-2 border-b"><input name="keywords" value={editForm.keywords} onChange={handleEditChange} className="border px-2 py-1 rounded w-full" /></td>
-                        <td className="px-4 py-2 border-b">
-                          <button onClick={handleEditSave} className="mr-2 px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700">Save</button>
-                          <button onClick={() => setEditPost(null)} className="px-3 py-1 bg-gray-400 text-white rounded hover:bg-gray-500">Cancel</button>
+                        <td className="px-2 py-2 border-b"><input name="title" value={editForm.title} onChange={handleEditChange} className="border px-2 py-1 rounded w-full" /></td>
+                        <td className="px-2 py-2 border-b"><input name="category" value={editForm.category} onChange={handleEditChange} className="border px-2 py-1 rounded w-full" /></td>
+                        <td className="px-2 py-2 border-b"><input name="createdAt" value={editForm.createdAt ? new Date(editForm.createdAt).toISOString().slice(0, 10) : ''} onChange={handleEditChange} className="border px-2 py-1 rounded w-full" type="date" /></td>
+                        <td className="px-2 py-2 border-b"><input name="content" value={editForm.content} onChange={handleEditChange} className="border px-2 py-1 rounded w-full" /></td>
+                        <td className="px-2 py-2 border-b"><input name="keywords" value={editForm.keywords} onChange={handleEditChange} className="border px-2 py-1 rounded w-full" /></td>
+                        <td className="px-2 py-2 border-b">
+                          <button onClick={handleEditSave} className="mr-2 px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700">
+                            <RiSave2Line />
+                          </button>
+                          <button onClick={() => setEditPost(null)} className="px-3 py-1 bg-gray-400 text-white rounded hover:bg-gray-500">
+                            <FcCancel />
+                          </button>
                         </td>
                       </>
                     ) : (
                       <>
-                        <td className="px-4 py-2 border-b">{post.title}</td>
-                        <td className="px-4 py-2 border-b">{post.category}</td>
-                        <td className="px-4 py-2 border-b">{post.createdAt ? new Date(post.createdAt).toLocaleDateString() : ''}</td>
-                        <td className="px-4 py-2 border-b">{post.content}</td>
-                        <td className="px-4 py-2 border-b">{post.keywords}</td>
-                        <td className="px-4 py-2 border-b">
-                          <button onClick={() => handleEdit(post)} className="mr-2 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700">Edit</button>
-                          <button onClick={() => handleDelete(post._id)} className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700">Delete</button>
+                        <td className="px-2 py-2 border-b text-sm">{post.title}</td>
+                        <td className="px-2 py-2 border-b text-sm">{post.category}</td>
+                        <td className="px-2 py-2 border-b text-sm">{post.createdAt ? new Date(post.createdAt).toLocaleDateString() : ''}</td>
+                        <td className="px-2 py-2 border-b text-sm">{post.content.replace(/<[^>]+>/g, '').length > 50
+                          ? post.content.substring(0, 50) + "..."
+                          : post.content}</td>
+                        <td className="px-2 py-2 border-b text-sm">{post.keywords}</td>
+                        <td className="px-2 py-2 border-b">
+                          <button onClick={() => handleEdit(post)} className="mr-2 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700">
+                            <CiEdit />
+                          </button>
+                          <button onClick={() => handleDelete(post._id)} className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700">
+                            <RiDeleteBin2Line />
+                          </button>
                         </td>
                       </>
                     )}
@@ -130,6 +150,7 @@ const ManagePost = () => {
             </table>
           </div>
         )}
+      </div>
       </div>
     </DashboardLayout>
   );
