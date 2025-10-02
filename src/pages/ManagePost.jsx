@@ -21,7 +21,7 @@ const ManagePost = () => {
       setLoading(true);
       setError('');
       try {
-        const res = await fetch('http://localhost:5000/api/posts');
+        const res = await fetch('https://blog-website-backend-wcn7.onrender.com');
         const data = await res.json();
         if (res.ok) {
           setPosts(data.filter(post => post.authorGmail === userEmail));
@@ -48,7 +48,7 @@ const ManagePost = () => {
 
   const handleEditSave = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/posts/${editPost}`, {
+      const res = await fetch(`https://blog-website-backend-wcn7.onrender.com/${editPost}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editForm)
@@ -68,7 +68,7 @@ const ManagePost = () => {
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this post?')) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/posts/${id}`, { method: 'DELETE' });
+      const res = await fetch(`https://blog-website-backend-wcn7.onrender.com/${id}`, { method: 'DELETE' });
       if (res.ok) {
         setPosts(posts.filter(p => p._id !== id));
       } else {
