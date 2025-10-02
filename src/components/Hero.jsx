@@ -66,7 +66,7 @@ const Hero = () => {
     <section
       className="w-full text-white py-20 flex items-center justify-center relative"
       style={{
-        backgroundImage: "url('https://wallpapercave.com/wp/wp15280119.webp')",
+        backgroundImage: "url('https://i.ibb.co/0R7BGnhG/wp14963393-minimal-nature-phone-wallpapers.webp')",
         backgroundSize: "cover",
         backgroundPosition: `center ${scrollOffset * 0.3}px`,
         backgroundRepeat: "no-repeat",
