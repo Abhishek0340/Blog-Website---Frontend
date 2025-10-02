@@ -16,12 +16,12 @@ const Dashboard = () => {
     const fetchData = async () => {
       setLoading(true);
       // Fetch posts
-      const postsRes = await fetch("https://blog-website-backend-wcn7.onrender.com");
+      const postsRes = await fetch("https://blog-website-backend-wcn7.onrender.com/api/posts");
       const postsData = await postsRes.json();
       
       let usersCount = 0;
       try {
-        const usersRes = await fetch("https://blog-website-backend-wcn7.onrender.com");
+        const usersRes = await fetch("https://blog-website-backend-wcn7.onrender.com/api/users");
         if (usersRes.ok) {
           const usersData = await usersRes.json();
           usersCount = usersData.length;
