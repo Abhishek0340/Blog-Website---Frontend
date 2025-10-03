@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FiGrid, FiLogOut } from "react-icons/fi";
+import { FiGrid, FiLogOut, FiHome, FiPlus   } from "react-icons/fi";
 
 const navLinks = [
-  { name: "Home", to: "/", icon: "🏠" },
-  { name: "Nature", to: "/category/nature", icon: "🌳" },
-  { name: "Travel", to: "/category/travel", icon: "✈️" },
-  { name: "Science", to: "/category/science", icon: "🔬" },
+  { name: " Home", to: "/", icon: <FiHome /> },
+  { name: "Post", to: "/post", icon: ''},
 ];
 
 const Navbar = () => {
@@ -15,13 +13,13 @@ const Navbar = () => {
 
   return (
     <header className="w-full bg-white border-b border-gray-200 sticky top-0 z-50">
-      <div className="max-w-[1400px] mx-auto flex items-center justify-between px-6 py-3 relative">
+      <div className="w-full mx-auto flex items-center justify-between px-6 py-3 relative">
         {/* Logo */}
         <Link to="/" className="flex items-center">
           <img
             srcSet="https://i.ibb.co/jZ4sVWWt/image-logo.png"
             alt="trendyblogs - logo"
-            className="h-10 w-auto"
+            className="max-h-10 w-auto sm:max-h-14 md:max-h-10 lg:max-h-10 xl:max-h-10 object-contain"
           />
         </Link>
 
@@ -31,7 +29,7 @@ const Navbar = () => {
             <Link
               key={link.to}
               to={link.to}
-              className="flex items-center gap-2 text-gray-700 font-medium px-4 py-2 rounded-md hover:bg-gray-100 hover:text-gray-900 transition"
+              className="flex items-center gap-1 text-gray-700 font-medium px-2 py-2 rounded-md hover:bg-gray-100 hover:text-gray-900 transition"
             >
               <span>{link.icon}</span>
               {link.name}
@@ -45,13 +43,13 @@ const Navbar = () => {
             <>
               <Link
                 to="/dashboard"
-                className="flex items-center gap-2 bg-gray-100 text-gray-900 px-4 py-2 rounded-md font-medium hover:bg-gray-900 hover:text-white transition"
+                className="flex items-center  bg-gray-100 text-gray-900 px-2 py-2 rounded-md font-medium hover:bg-gray-200  transition"
               >
-                <FiGrid className="text-lg" />
+                <FiGrid className="text-lg mr-2" />
                 Dashboard
               </Link>
               <button
-                className="flex items-center gap-2 bg-gray-100 text-gray-900 px-4 py-2 rounded-md font-medium hover:bg-gray-900 hover:text-white transition"
+                className="flex items-center  bg-blue-500 text-white px-2 cursor-pointer py-2 rounded-md font-medium hover:bg-red-700 hover:text-white transition"
                 onClick={() => {
                   localStorage.removeItem("authToken");
                   window.location.href = "/login";
@@ -155,5 +153,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-

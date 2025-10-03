@@ -7,8 +7,6 @@ const routes = [
   '/login',
   '/register',
   '/dashboard',
-  '/profile',
-  '/category',
   '/post'
 ];
 

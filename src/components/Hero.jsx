@@ -1,51 +1,11 @@
-// import React from "react";
-// import { Link } from "react-router-dom";
-
-
-// const Hero = () => {
-// 	return (
-
-// 		<section className="w-full text-black  py-16 flex items-center justify-center relative"
-// 			style={{
-// 				backgroundImage:
-// 					"url('https://wallpapercave.com/wp/wp15280119.webp')",
-// 				backgroundSize: 'cover',
-// 				backgroundPosition: 'center',
-// 				backgroundRepeat: 'no-repeat',
-// 				backgroundColor: '#fff',
-// 			}}
-// 		>
-// 			{/* Remove overlay for now to debug image visibility */}
-// 			<div className="relative max-w-3xl mx-auto text-center px-4">
-// 				<h1 className="text-4xl md:text-5xl font-extrabold text-gray-600 mb-4 drop-shadow-lg">
-// 					Welcome to trendyblogs
-// 				</h1>
-// 				<p className="text-lg md:text-xl text-gray-900 mb-8 drop-shadow">
-// 					Discover inspiring stories, expert insights, and the latest trends in Nature, Travel, and Science. Join our community and start sharing your own adventures today!
-// 				</p>
-// 				<Link
-// 					to="/register"
-// 					className="inline-block bg-white text-black rounded-lg px-8 py-3 text-lg font-semibold shadow transition"
-// 				>
-// 					Get Started
-// 				</Link>
-// 			</div>
-// 		</section>
-// 	);
-// };
-
-// export default Hero;
-
-
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Hero = () => {
   const [taglineIndex, setTaglineIndex] = useState(0);
-  const [scrollOffset, setScrollOffset] = useState(0);
   const taglines = ["Stories", "Adventures", "Insights", "Discoveries"];
 
-  // Rotate taglines every 3 seconds
+  // Rotate taglines every 3s
   useEffect(() => {
     const interval = setInterval(() => {
       setTaglineIndex((prevIndex) => (prevIndex + 1) % taglines.length);
@@ -53,46 +13,53 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, [taglines.length]);
 
-  // Track scroll for parallax effect
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollOffset(window.scrollY);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
     <section
-      className="w-full text-white py-20 flex items-center justify-center relative"
+      className="relative w-full flex items-center justify-center min-h-screen text-gray-900 overflow-hidden"
       style={{
         backgroundImage: "url('https://wallpapercave.com/wp/wp15280119.webp')",
         backgroundSize: "cover",
-        backgroundPosition: `center ${scrollOffset * 0.3}px`,
-        backgroundRepeat: "no-repeat",
-        
-        minHeight: "70vh",
+        backgroundPosition: "center",
       }}
     >
-      <div className="relative max-w-4xl mx-auto text-center px-6 bg-white/20 rounded-xl p-10">
-        <h1
-          className="text-5xl md:text-6xl font-bold text-white mb-6 drop-shadow-2xl transition-transform duration-300 ease-in-out transform hover:scale-105 cursor-default"
-        >
-          Explore the World with TrendyBlogs
+      {/* White + Blue Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-blue-100/70 to-gray-200/80"></div>
+
+      {/* Floating Gradient Circles for Modern Touch */}
+      <div className="absolute -top-20 -left-20 w-60 h-60 bg-blue-300/40 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute bottom-10 right-10 w-72 h-72 bg-blue-500/30 rounded-full blur-3xl animate-bounce"></div>
+
+      {/* Content */}
+      <div className="relative max-w-5xl w-full px-6 md:px-12 text-center md:text-left z-10">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight tracking-tight">
+          Explore{" "}
+          <span className="bg-gradient-to-r from-blue-600 via-blue-400 to-sky-500 text-transparent bg-clip-text animate-gradient">
+            TrendyBlogs
+          </span>
         </h1>
-        <p className="text-xl md:text-2xl text-gray-600 mb-10 drop-shadow-md">
-          Dive into captivating{" "}
-          <span className="inline-block transition-opacity duration-500 opacity-100 animate-fadeIn text-yellow-900">
+
+        <p className="mt-6 text-lg sm:text-xl md:text-2xl text-gray-800 max-w-3xl mx-auto md:mx-0 leading-relaxed">
+          Dive into exciting{" "}
+          <span className="text-blue-600 font-bold animate-pulse">
             {taglines[taglineIndex]}
           </span>{" "}
-          in Nature, Travel, and Science. Share your journey with us!
+          in Nature, Travel & Science.
         </p>
-        <Link
-          to="/register"
-          className="inline-block  text-black rounded-full px-10 py-4 text-xl font-semibold shadow-lg hover:bg-yellow-400 transition duration-300 transform hover:scale-110 hover:shadow-xl"
-        >
-          Start Your Adventure
-        </Link>
+
+        <div className="mt-10 flex flex-col sm:flex-row items-center gap-5 justify-center md:justify-start">
+          <Link
+            to="/login"
+            className="bg-blue-600 text-white rounded-full px-8 py-3 text-lg font-semibold shadow-lg hover:bg-blue-700 transition transform hover:scale-110 hover:shadow-2xl"
+          >
+            Start Exploring
+          </Link>
+          <Link
+            to="/about"
+            className="border-2 border-blue-600 text-blue-600 rounded-full px-8 py-3 text-lg font-semibold hover:bg-blue-600 hover:text-white transition transform hover:scale-110 hover:shadow-2xl"
+          >
+            Learn More
+          </Link>
+        </div>
       </div>
     </section>
   );

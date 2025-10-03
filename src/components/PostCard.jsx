@@ -12,7 +12,7 @@ const PostCard = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch("https://blog-website-backend-wcn7.onrender.com");
+        const res = await fetch("https://blog-website-backend-wcn7.onrender.com/api/posts");
         if (!res.ok) throw new Error('Failed to fetch posts');
         const data = await res.json();
         setPosts(data);
@@ -27,12 +27,12 @@ const PostCard = () => {
 
   // Get up to 6 posts for each category
   const getPostsByCategory = (category) =>
-    posts.filter((post) => post.category && post.category.toLowerCase() === category).slice(0, 6);
+    posts.filter((post) => post.category && post.category.toLowerCase() === category).slice(0, 3);
 
-  const categories = ['nature', 'travel', 'science'];
+  const categories = ['nature', 'travel', 'science', 'technology'];
 
   if (loading) return <div><Spinner /></div>;
-  if (error) return <div>Error: {error}</div>;
+  if (error) return <div>Check the Internet Connection..</div>;
 
   return (
     <div>

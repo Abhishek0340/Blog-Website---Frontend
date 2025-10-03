@@ -1,10 +1,12 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
+
 
 const categories = [
   { name: 'Nature', slug: 'nature' , icon: "🌳"},
   { name: 'Travel', slug: 'travel' , icon: "✈️"},
   { name: 'Science', slug: 'science' , icon: "🔬"},
-  { name: 'Technology', slug: 'technology',  icon: "🔬"}
+  { name: 'Technology', slug: 'technology',  icon: "💻"}
 ];
 
 

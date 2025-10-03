@@ -24,9 +24,9 @@ const App = () => {
         <meta name="description" content="A modern trendyblogs to share, discover, and read posts on various categories. Join our community and start blogging today!" />
         <meta name="keywords" content="blog, posts, categories, community, writing, reading, discover" />
         <meta property="og:title" content="trendyblogs - Share and Discover Posts" />
-        <meta property="og:description" content="A modern trendyblogs to share, discover, and read posts on various categories." />    
+        <meta property="og:description" content="A modern trendyblogs to share, discover, and read posts on various categories." />
         <meta property="og:url" content="https://yourblogwebsite.com" />
-       </Helmet>
+      </Helmet>
       <Router>
         <Routes>
           <Route path="*" element={<NotFound />} />
@@ -39,7 +39,7 @@ const App = () => {
           <Route path="/viewpost/:id" element={<ViewPost />} />
           <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
           <Route path="/support" element={<Support />} />
-         
+
           // Protected Routes
           <Route path="/dashboard" element={
             <ProtectedRoute>
@@ -51,6 +51,7 @@ const App = () => {
               <Post />
             </ProtectedRoute>
           } />
+         
           <Route path="/managepost" element={
             <ProtectedRoute>
               <ManagePost />

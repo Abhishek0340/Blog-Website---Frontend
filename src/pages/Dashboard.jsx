@@ -16,12 +16,12 @@ const Dashboard = () => {
     const fetchData = async () => {
       setLoading(true);
       // Fetch posts
-      const postsRes = await fetch("https://blog-website-backend-wcn7.onrender.com");
+      const postsRes = await fetch("https://blog-website-backend-wcn7.onrender.com/api/posts");
       const postsData = await postsRes.json();
       
       let usersCount = 0;
       try {
-        const usersRes = await fetch("https://blog-website-backend-wcn7.onrender.com");
+        const usersRes = await fetch("https://blog-website-backend-wcn7.onrender.com/api/users");
         if (usersRes.ok) {
           const usersData = await usersRes.json();
           usersCount = usersData.length;
@@ -51,7 +51,6 @@ const Dashboard = () => {
         <meta property="og:description" content='View your blog stats, recent posts, and manage your content on the trendyblogs dashboard.' />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://yourblogwebsite.com/dashboard" />
-        <meta property="og:image" content="/public/og-image.png" />
       </Helmet>
       <DashboardLayout>
         <div className="p-6">

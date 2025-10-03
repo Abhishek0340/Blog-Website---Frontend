@@ -19,7 +19,7 @@ const Category = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch("https://blog-website-backend-wcn7.onrender.com");
+        const res = await fetch("https://blog-website-backend-wcn7.onrender.com/api/posts");
         if (!res.ok) throw new Error('Failed to fetch posts');
         const data = await res.json();
         setPosts(data);
@@ -67,7 +67,6 @@ const Category = () => {
         <meta property="og:description" content={name ? `Browse posts in the ${name} category on trendyblogs.` : "Browse posts by category on trendyblogs."} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`https://yourblogwebsite.com/category/${name}`} />
-        <meta property="og:image" content="/public/og-image.png" />
       </Helmet>
       <Navbar />
       <div className="min-h-screen  flex flex-col bg-gray-50">
@@ -94,7 +93,7 @@ const Category = () => {
           {loading ? (
             <div><Spinner /></div>
           ) : error ? (
-            <div className="text-red-500">Error: {error}</div>
+            <div className="text-red-500"><Spinner /></div>
           ) : filteredPosts.length > 0 ? (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-4">
               {filteredPosts

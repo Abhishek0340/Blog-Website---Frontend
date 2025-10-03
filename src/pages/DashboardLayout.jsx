@@ -23,7 +23,7 @@ const DashboardLayout = ({ children }) => {
           setUsername('User');
           return;
         }
-        const res = await fetch(`http://localhost:5000/api/userinfo?email=${email}`);
+        const res = await fetch(`https://blog-website-backend-wcn7.onrender.com/api/userinfo?email=${email}`);
         const data = await res.json();
         if (res.ok) {
           setUsername(data.username);
@@ -68,7 +68,7 @@ const DashboardLayout = ({ children }) => {
                     ? 'bg-gray-100 text-blue-700 font-bold'
                     : ''
                 }`}
-                onClick={() => setDrawerOpen(false)} // auto close on mobile
+                onClick={() => setDrawerOpen(false)} 
               >
                 <span className="text-xl">{link.icon}</span>
                 {link.name}
