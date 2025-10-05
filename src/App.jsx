@@ -14,6 +14,7 @@ import ViewPost from './pages/ViewPost';
 import TermsAndConditions from './pages/TermsAndConditions';
 import Support from './pages/Support';
 import NotFound from "./pages/NotFound";
+import Profile from "./pages/Profile";
 
 
 const App = () => {
@@ -44,6 +45,11 @@ const App = () => {
           <Route path="/dashboard" element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          } />
+          <Route path="/profile" element={
+            <ProtectedRoute>
+              <Profile />
             </ProtectedRoute>
           } />
           <Route path="/post" element={

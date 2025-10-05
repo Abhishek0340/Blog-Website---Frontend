@@ -9,7 +9,6 @@ const Dashboard = () => {
   const [stats, setStats] = useState({ posts: 0, categories: 0, users: 0, comments: 0 });
   const [recentPosts, setRecentPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const dashboardDescription = "View your blog stats, recent posts, and manage your content on the trendyblogs dashboard.";
 
 
   useEffect(() => {
@@ -19,20 +18,13 @@ const Dashboard = () => {
       const postsRes = await fetch("https://blog-website-backend-wcn7.onrender.com/api/posts");
       const postsData = await postsRes.json();
       
-      let usersCount = 0;
-      try {
-        const usersRes = await fetch("https://blog-website-backend-wcn7.onrender.com/api/users");
-        if (usersRes.ok) {
-          const usersData = await usersRes.json();
-          usersCount = usersData.length;
-        }
-      } catch { }
+     
      
       const categoriesSet = new Set(postsData.map(p => p.category));
       setStats({
         posts: postsData.length,
         categories: categoriesSet.size,
-        users: usersCount,
+        users: 0,
         comments: 0 
       });
       setRecentPosts(postsData.slice(-3).reverse());
@@ -83,7 +75,7 @@ const Dashboard = () => {
               <FiUsers className="text-purple-600 text-3xl" />
               <div>
                 <p className="text-gray-500 text-sm">Users</p>
-                <h2 className="text-xl font-bold text-gray-800">{loading ? '...' : stats.users}</h2>
+                <h2 className="text-xl font-bold text-gray-800">0</h2>
               </div>
             </div>
           </div>

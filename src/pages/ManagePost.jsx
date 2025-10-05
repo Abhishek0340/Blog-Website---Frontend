@@ -33,26 +33,74 @@ const ManagePost = () => {
   }, [userEmail]);
 
   const handleEdit = (post) => {
+
     // Navigate to Post page with post data for editing
     navigate('/post', { state: { editPost: post } });
+    setEditPost(post._id);
+    setEditForm({ ...post });
   };
 
-  const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this post?')) return;
+  const handleEditChange = (e) => {
+    const { name, value } = e.target;
+    setEditForm(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleEditSave = async () => {
     try {
-      const res = await fetch(`https://blog-website-backend-wcn7.onrender.com/api/posts/${id}`, {
-        method: 'DELETE'
+      const res = await fetch(`https://blog-website-backend-wcn7.onrender.com/api/posts${editPost}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(editForm)
       });
+      const data = await res.json();
       if (res.ok) {
-        setPosts(posts.filter(p => p._id !== id));
+        setPosts(posts.map(p => (p._id === editPost ? { ...editForm, _id: editPost } : p)));
+        setEditPost(null);
       } else {
-        const data = await res.json();
-        alert(data.error || 'Failed to delete post.');
+        alert(data.error || 'Failed to update post.');
       }
     } catch (err) {
       alert('Error connecting to backend.');
     }
+
   };
+
+  // const handleDelete = async (id) => {
+  //   if (!window.confirm('Are you sure you want to delete this post?')) return;
+  //   try {
+  //     const res = await fetch(`https://blog-website-backend-wcn7.onrender.com/api/posts/${id}`, {
+  //       method: 'DELETE'
+  //     });
+  //     const res = await fetch(`https://blog-website-backend-wcn7.onrender.com/api/posts/${id}`, { method: 'DELETE' });
+
+  //     if (res.ok) {
+  //       setPosts(posts.filter(p => p._id !== id));
+  //     } else {
+  //       const data = await res.json();
+  //       alert(data.error || 'Failed to delete post.');
+  //     }
+  //   } catch (err) {
+  //     alert('Error connecting to backend.');
+  //   }
+  // };
+
+  const handleDelete = async (id) => {
+  if (!window.confirm('Are you sure you want to delete this post?')) return;
+  try {
+    const res = await fetch(`https://blog-website-backend-wcn7.onrender.com/api/posts/${id}`, {
+      method: 'DELETE'
+    });
+
+    if (res.ok) {
+      setPosts(posts.filter(p => p._id !== id));
+    } else {
+      const data = await res.json();
+      alert(data.error || 'Failed to delete post.');
+    }
+  } catch (err) {
+    alert('Error connecting to backend.');
+  }
+};
 
   return (
     <DashboardLayout>
@@ -69,7 +117,7 @@ const ManagePost = () => {
             <div className="text-center text-gray-500">No posts found for your account.</div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full bg-white border-gray-200 rounded-md border-gray-200">
+              <table className="w-full bg-white  rounded-md border-gray-200">
                 <thead>
                   <tr className='border-gray-200'>
                     <th className="px-2 py-2 border-b border-gray-200">Title</th>

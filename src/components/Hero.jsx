@@ -17,7 +17,7 @@ const Hero = () => {
     <section
       className="relative w-full flex items-center justify-center min-h-screen text-gray-900 overflow-hidden"
       style={{
-        backgroundImage: "url('https://wallpapercave.com/wp/wp15280119.webp')",
+        backgroundImage: "url('https://i.ibb.co/0R7BGnhG/wp14963393-minimal-nature-phone-wallpapers.webp')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}

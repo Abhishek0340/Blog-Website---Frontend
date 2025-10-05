@@ -11,8 +11,8 @@ const Footer = () => {
           <h2 className="text-xl font-bold text-gray-900 mb-3">    
             <Link to='/'>
                   <img className="w-1/2" 
-                  src="https://i.ibb.co/jZ4sVWWt/image-logo.png" 
-                  alt="trendyblogs - logo" srcset="" />   
+                  srcSet="https://i.ibb.co/jZ4sVWWt/image-logo.png" 
+                  alt="trendyblogs - logo"  />   
             </Link>  
          </h2>
           <p className="text-sm text-gray-600">

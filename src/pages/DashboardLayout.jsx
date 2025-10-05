@@ -8,35 +8,40 @@ const DashboardLayout = ({ children }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const location = useLocation();
   const [username, setUsername] = useState('Loading...');
+  const [user, setUser] = useState(null);
+
+  const [loading, setLoading] = useState(true);
+
 
   const sidebarLinks = [
     { name: 'Dashboard', to: '/dashboard', icon: '🏠' },
     { name: 'Create Post', to: '/post', icon: '📝' },
     { name: 'Manage Posts', to: '/managepost', icon: '📋' },
+    { name: 'Profile', to: '/profile', icon: '📋' }
   ];
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const email = localStorage.getItem('email');
-        if (!email) {
-          setUsername('User');
-          return;
-        }
-        const res = await fetch(`https://blog-website-backend-wcn7.onrender.com/api/userinfo?email=${email}`);
-        const data = await res.json();
-        if (res.ok) {
-          setUsername(data.username);
-        } else {
-          setUsername('User');
-        }
-      } catch (error) {
-        setUsername('User');
-      }
-    };
-    fetchUser();
-  }, []);
 
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("authEmail");
+    
+
+    if (storedEmail) {
+      fetch(`https://blog-website-backend-wcn7.onrender.com/api/userinfo?email=${storedEmail}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (!data.error) {
+            setUser(data);
+          }
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error("Error fetching user info:", err);
+          setLoading(false);
+        });
+    } else {
+      setLoading(false);
+    }
+  }, []);
   return (
     <>
       <Navbar />
@@ -49,13 +54,16 @@ const DashboardLayout = ({ children }) => {
           ${drawerOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}
         >
           {/* Profile Section */}
-          <div className="flex flex-col items-center mb-8 mt-8">
-            <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-3xl font-bold text-gray-500 mb-2">
-              {username.charAt(0).toUpperCase()}
-            </div>
-            <span className="font-semibold text-gray-700">{username}</span>
-            <span className="text-xs hidden text-gray-400">Admin</span>
-          </div>
+<div className="flex flex-col items-center mb-8 mt-8">
+  <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-3xl font-bold text-gray-500 mb-2">
+    {user ? user.username.charAt(0).toUpperCase() : 'U'}
+  </div>
+  <span className="font-semibold text-gray-700">
+    {user ? user.username : ''}
+  </span>
+  <span className="text-xs hidden text-gray-400">Admin</span>
+</div>
+
 
           {/* Sidebar Links */}
           <nav className="flex flex-col gap-2 mt-2">
@@ -63,12 +71,11 @@ const DashboardLayout = ({ children }) => {
               <Link
                 key={link.to}
                 to={link.to}
-                className={`flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition text-gray-700 hover:bg-gray-100 hover:text-blue-700 ${
-                  location.pathname === link.to
+                className={`flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition text-gray-700 hover:bg-gray-100 hover:text-blue-700 ${location.pathname === link.to
                     ? 'bg-gray-100 text-blue-700 font-bold'
                     : ''
-                }`}
-                onClick={() => setDrawerOpen(false)} 
+                  }`}
+                onClick={() => setDrawerOpen(false)}
               >
                 <span className="text-xl">{link.icon}</span>
                 {link.name}
