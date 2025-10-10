@@ -1,66 +1,46 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 const Hero = () => {
-  const [taglineIndex, setTaglineIndex] = useState(0);
-  const taglines = ["Stories", "Adventures", "Insights", "Discoveries"];
-
-  // Rotate taglines every 3s
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTaglineIndex((prevIndex) => (prevIndex + 1) % taglines.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [taglines.length]);
-
   return (
-    <section
-      className="relative w-full flex items-center justify-center min-h-screen text-gray-900 overflow-hidden"
-      style={{
-        backgroundImage: "url('https://i.ibb.co/0R7BGnhG/wp14963393-minimal-nature-phone-wallpapers.webp')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      {/* White + Blue Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-blue-100/70 to-gray-200/80"></div>
+    <section className="relative w-full h-screen flex flex-col items-center justify-center text-center bg-gradient-to-br from-indigo-50 via-blue-100 to-cyan-100 overflow-hidden">
+      
+      {/* Soft Floating Blobs */}
+      <div className="absolute top-[-10%] left-[-10%] w-72 h-72 bg-indigo-300/40 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute bottom-[-15%] right-[-10%] w-96 h-96 bg-cyan-400/40 rounded-full blur-3xl animate-bounce"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-white/30 via-transparent to-white/40 backdrop-blur-md"></div>
 
-      {/* Floating Gradient Circles for Modern Touch */}
-      <div className="absolute -top-20 -left-20 w-60 h-60 bg-blue-300/40 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-10 right-10 w-72 h-72 bg-blue-500/30 rounded-full blur-3xl animate-bounce"></div>
-
-      {/* Content */}
-      <div className="relative max-w-5xl w-full px-6 md:px-12 text-center md:text-left z-10">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight tracking-tight">
-          Explore{" "}
-          <span className="bg-gradient-to-r from-blue-600 via-blue-400 to-sky-500 text-transparent bg-clip-text animate-gradient">
+      {/* Main Content */}
+      <div className="relative z-10 px-6 max-w-3xl  p-10 rounded-3xl">
+        <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-gray-900 leading-tight tracking-tight">
+          Welcome to{" "}
+          <span className="bg-gradient-to-r from-indigo-600 via-blue-500 to-cyan-400 text-transparent bg-clip-text">
             TrendyBlogs
           </span>
         </h1>
 
-        <p className="mt-6 text-lg sm:text-xl md:text-2xl text-gray-800 max-w-3xl mx-auto md:mx-0 leading-relaxed">
-          Dive into exciting{" "}
-          <span className="text-blue-600 font-bold animate-pulse">
-            {taglines[taglineIndex]}
-          </span>{" "}
-          in Nature, Travel & Science.
+        <p className="mt-6 text-lg sm:text-xl md:text-2xl text-gray-700 font-medium leading-relaxed">
+          Dive into a world of stories, ideas, and inspiration — crafted just for you.
         </p>
 
-        <div className="mt-10 flex flex-col sm:flex-row items-center gap-5 justify-center md:justify-start">
+        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-6">
           <Link
             to="/login"
-            className="bg-blue-600 text-white rounded-full px-8 py-3 text-lg font-semibold shadow-lg hover:bg-blue-700 transition transform hover:scale-110 hover:shadow-2xl"
+            className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full px-8 py-3 text-lg font-semibold transition-all duration-300 hover:scale-110"
           >
             Start Exploring
           </Link>
           <Link
             to="/about"
-            className="border-2 border-blue-600 text-blue-600 rounded-full px-8 py-3 text-lg font-semibold hover:bg-blue-600 hover:text-white transition transform hover:scale-110 hover:shadow-2xl"
+            className="border-2 border-indigo-600 text-indigo-600 rounded-full px-8 py-3 text-lg font-semibold hover:bg-indigo-600 hover:text-white transition-all duration-300 hover:scale-110"
           >
             Learn More
           </Link>
         </div>
       </div>
+
+      {/* Subtle glow at bottom */}
+      <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-blue-200 via-transparent to-transparent"></div>
     </section>
   );
 };

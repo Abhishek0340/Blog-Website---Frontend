@@ -17,9 +17,7 @@ const Dashboard = () => {
       // Fetch posts
       const postsRes = await fetch("https://blog-website-backend-wcn7.onrender.com/api/posts");
       const postsData = await postsRes.json();
-      
-     
-     
+    
       const categoriesSet = new Set(postsData.map(p => p.category));
       setStats({
         posts: postsData.length,
@@ -42,7 +40,7 @@ const Dashboard = () => {
         <meta property="og:title" content='Dashboard | trendyblogs' />
         <meta property="og:description" content='View your blog stats, recent posts, and manage your content on the trendyblogs dashboard.' />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://yourblogwebsite.com/dashboard" />
+        <meta property="og:url" content="/dashboard" />
       </Helmet>
       <DashboardLayout>
         <div className="p-6">
@@ -107,7 +105,7 @@ const Dashboard = () => {
                 <Link to='/post'>➕ Add New Post </Link>
               </button>
               <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
-                <Link to='/managepost'>🗂 Manage Categories</Link>
+                <Link to='/managepost'>🗂 Manage Posts</Link>
               </button>
               <button className="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-900 transition">
                 <Link to='/managepost'>📑 View All Posts</Link>

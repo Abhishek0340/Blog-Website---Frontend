@@ -2,6 +2,12 @@ import Navbar from '../components/Navbar';
 import React, { useState, useEffect } from 'react';
 import Footer from '../components/Footer';
 import { Link, useLocation } from 'react-router-dom';
+import Spinner from '../components/Spinner';
+import { FaRegUser } from "react-icons/fa6";
+import { BiRepost } from "react-icons/bi";
+import { IoCreateOutline } from "react-icons/io5";
+import { MdOutlineDashboard } from "react-icons/md";
+
 
 
 const DashboardLayout = ({ children }) => {
@@ -10,20 +16,20 @@ const DashboardLayout = ({ children }) => {
   const [username, setUsername] = useState('Loading...');
   const [user, setUser] = useState(null);
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
 
   const sidebarLinks = [
-    { name: 'Dashboard', to: '/dashboard', icon: '🏠' },
-    { name: 'Create Post', to: '/post', icon: '📝' },
-    { name: 'Manage Posts', to: '/managepost', icon: '📋' },
-    { name: 'Profile', to: '/profile', icon: '📋' }
+    { name: 'Dashboard', to: '/dashboard', icon: <MdOutlineDashboard />},
+    { name: 'Create Post', to: '/post', icon: <IoCreateOutline /> },
+    { name: 'Manage Posts', to: '/managepost', icon: <BiRepost /> },
+    { name: 'Profile', to: '/profile', icon: <FaRegUser /> }
   ];
 
 
   useEffect(() => {
     const storedEmail = localStorage.getItem("authEmail");
-    
+
 
     if (storedEmail) {
       fetch(`https://blog-website-backend-wcn7.onrender.com/api/userinfo?email=${storedEmail}`)
@@ -54,15 +60,15 @@ const DashboardLayout = ({ children }) => {
           ${drawerOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}
         >
           {/* Profile Section */}
-<div className="flex flex-col items-center mb-8 mt-8">
-  <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-3xl font-bold text-gray-500 mb-2">
-    {user ? user.username.charAt(0).toUpperCase() : 'U'}
-  </div>
-  <span className="font-semibold text-gray-700">
-    {user ? user.username : ''}
-  </span>
-  <span className="text-xs hidden text-gray-400">Admin</span>
-</div>
+          <div className="flex flex-col items-center mb-8 mt-8">
+            <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-3xl font-bold text-gray-500 mb-2">
+              {user ? user.username.charAt(0).toUpperCase() : ''}
+            </div>
+            <span className="font-semibold text-gray-700">
+              {user ? user.username : ''}
+            </span>
+            <span className="text-xs hidden text-gray-400">Admin</span>
+          </div>
 
 
           {/* Sidebar Links */}
@@ -72,8 +78,8 @@ const DashboardLayout = ({ children }) => {
                 key={link.to}
                 to={link.to}
                 className={`flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition text-gray-700 hover:bg-gray-100 hover:text-blue-700 ${location.pathname === link.to
-                    ? 'bg-gray-100 text-blue-700 font-bold'
-                    : ''
+                  ? 'bg-gray-100 text-blue-700 font-bold'
+                  : ''
                   }`}
                 onClick={() => setDrawerOpen(false)}
               >

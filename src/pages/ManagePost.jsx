@@ -34,7 +34,6 @@ const ManagePost = () => {
 
   const handleEdit = (post) => {
 
-    // Navigate to Post page with post data for editing
     navigate('/post', { state: { editPost: post } });
     setEditPost(post._id);
     setEditForm({ ...post });
@@ -65,24 +64,6 @@ const ManagePost = () => {
 
   };
 
-  // const handleDelete = async (id) => {
-  //   if (!window.confirm('Are you sure you want to delete this post?')) return;
-  //   try {
-  //     const res = await fetch(`https://blog-website-backend-wcn7.onrender.com/api/posts/${id}`, {
-  //       method: 'DELETE'
-  //     });
-  //     const res = await fetch(`https://blog-website-backend-wcn7.onrender.com/api/posts/${id}`, { method: 'DELETE' });
-
-  //     if (res.ok) {
-  //       setPosts(posts.filter(p => p._id !== id));
-  //     } else {
-  //       const data = await res.json();
-  //       alert(data.error || 'Failed to delete post.');
-  //     }
-  //   } catch (err) {
-  //     alert('Error connecting to backend.');
-  //   }
-  // };
 
   const handleDelete = async (id) => {
   if (!window.confirm('Are you sure you want to delete this post?')) return;

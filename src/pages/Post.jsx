@@ -79,6 +79,7 @@ const Post = () => {
       .split(/\s+/)
       .filter(w => w.length > 3)
       .slice(0, 20);
+
     setForm(prev => ({
       ...prev,
       description: newContent,
@@ -189,8 +190,9 @@ const Post = () => {
           <h1 className="text-2xl font-bold text-gray-800 mb-6">
             {isEditing ? 'Edit Blog Post' : 'Create a New Blog Post'}
           </h1>
-          <div className="w-full max-w-7xl mx-auto  rounded border p-4 border-gray-200 ">
+          <div className="w-full max-w-7xl mx-auto rounded border p-4 border-gray-200 ">
             <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+              
               {/* Blog Name */}
               <div>
                 <label className="block font-semibold mb-2 text-gray-700" htmlFor="blogName">Blog Name</label>
@@ -224,48 +226,24 @@ const Post = () => {
               <div>
                 <label className="block font-semibold mb-2 text-gray-700">Description</label>
                 <JoditEditor 
-                ref={editorRef}
+                  ref={editorRef}
                   value={form.description}
-                  onChange={handleEditorChange}
+                  tabIndex={1}
                   config={{
                     readonly: false,
                     height: 300,
                     toolbarSticky: true,
                     askBeforePasteHTML: false,
                     buttons: [
-                      "bold",
-                      "italic",
-                      "underline",
-                      "strikethrough",
-                      "|",
-                      "align",        
-                      "font",         
-                      "fontsize",
-                      "brush",       
-                      "|",
-                      "ul",           
-                      "ol",          
-                      "outdent",
-                      "indent",
-                      "|",
-                      "link",
-                      "unlink",
-                      "image",
-                      "video",
-                      "table",
-                      "hr",
-                      "eraser",
-                      "undo",
-                      "redo",
-                      "fullsize",
-                      "source",
+                      "bold","italic","underline","strikethrough","|",
+                      "align","font","fontsize","brush","|",
+                      "ul","ol","outdent","indent","|",
+                      "link","unlink","image","video","table","hr","eraser","undo","redo","fullsize","source",
                     ],
-                    uploader: {
-                      insertImageAsBase64URI: true,
-                    },
+                    uploader: { insertImageAsBase64URI: true },
                   }}
+                  onBlur={newContent => handleEditorChange(newContent)} // stable typing
                 />
-
               </div>
 
               {/* Keywords */}
@@ -282,24 +260,24 @@ const Post = () => {
                 />
               </div>
 
-              {/* Author, Category, Date */}
+              {/* Author, Category */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="">
-                  <label className="block  font-semibold mb-2 text-gray-700" htmlFor="authorName">Author Name</label>
+                  <label className="block font-semibold mb-2 text-gray-700" htmlFor="authorName">Author Name</label>
                   <input
                     type="text"
                     id="authorName"
                     name="authorName"
                     value={form.authorName}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400  text-gray-900"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-900"
                     required
                     placeholder='Enter Your Name..'
                     readOnly
                   />
                 </div>
                 <div>
-                  <label className="block  font-semibold mb-2 text-gray-700" htmlFor="category">Category</label>
+                  <label className="block font-semibold mb-2 text-gray-700" htmlFor="category">Category</label>
                   <select
                     id="category"
                     name="category"

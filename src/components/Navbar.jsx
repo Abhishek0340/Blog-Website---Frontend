@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FiGrid, FiLogOut, FiHome, FiPlus   } from "react-icons/fi";
 
 const navLinks = [
-  { name: " Home", to: "/", icon: <FiHome /> },
+  { name: "Home", to: "/", icon: '' },
   { name: "Post", to: "/post", icon: ''},
 ];
 
@@ -24,7 +24,7 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Links */}
-        <nav className={`hidden md:flex flex-1 justify-center gap-4`}>
+        <nav className='hidden md:flex flex-1 justify-center gap-4'>
           {navLinks.map((link) => (
             <Link
               key={link.to}
