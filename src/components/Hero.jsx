@@ -1,47 +1,90 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+
 const Hero = () => {
   return (
-    <section className="relative w-full h-screen flex flex-col items-center justify-center text-center bg-gradient-to-br from-indigo-50 via-blue-100 to-cyan-100 overflow-hidden">
-      
-      {/* Soft Floating Blobs */}
-      <div className="absolute top-[-10%] left-[-10%] w-72 h-72 bg-indigo-300/40 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-[-15%] right-[-10%] w-96 h-96 bg-cyan-400/40 rounded-full blur-3xl animate-bounce"></div>
-      <div className="absolute inset-0 bg-gradient-to-t from-white/30 via-transparent to-white/40 backdrop-blur-md"></div>
+    <header className="w-full">
+      <div className="relative overflow-hidden bg-gradient-to-br from-sky-50 via-white to-indigo-50">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-12 md:py-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
 
-      {/* Main Content */}
-      <div className="relative z-10 px-6 max-w-3xl  p-10 rounded-3xl">
-        <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-gray-900 leading-tight tracking-tight">
-          Welcome to{" "}
-          <span className="bg-gradient-to-r from-indigo-600 via-blue-500 to-cyan-400 text-transparent bg-clip-text">
-            TrendyBlogs
-          </span>
-        </h1>
+            {/* Left column: text */}
+            <div className="order-2 md:order-1 text-center md:text-left">
+              
 
-        <p className="mt-6 text-lg sm:text-xl md:text-2xl text-gray-700 font-medium leading-relaxed">
-          Dive into a world of stories, ideas, and inspiration — crafted just for you.
-        </p>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight text-gray-900">
+                TrendyBlogs
+              </h1>
 
-        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-6">
-          <Link
-            to="/login"
-            className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full px-8 py-3 text-lg font-semibold transition-all duration-300 hover:scale-110"
-          >
-            Start Exploring
-          </Link>
-          <Link
-            to="/about"
-            className="border-2 border-indigo-600 text-indigo-600 rounded-full px-8 py-3 text-lg font-semibold hover:bg-indigo-600 hover:text-white transition-all duration-300 hover:scale-110"
-          >
-            Learn More
-          </Link>
+              <p className="mt-4 mb-4 text-base sm:text-lg md:text-xl text-gray-700 max-w-2xl mx-auto md:mx-0">
+                Fresh posts on design, development, and lifestyle. Read, learn, and share.
+              </p>
+
+              
+
+              {/* Small search / explore box */}
+              <form
+                role="search"
+                className="mt-6 max-w-md mx-auto md:mx-0 flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full p-1.5 shadow-sm border border-gray-100"
+                onSubmit={(e) => e.preventDefault()}
+                aria-label="Search TrendyBlogs"
+              >
+                <input
+                  type="search"
+                  placeholder="Search topics, e.g. React, CSS, Product Design"
+                  className="flex-1 bg-transparent px-4 py-2 text-gray-700 placeholder-gray-400 rounded-full focus:outline-none"
+                />
+                <button
+                  type="submit"
+                  className="px-4 py-2 rounded-full bg-indigo-50 text-indigo-700 font-medium hover:bg-indigo-100 focus:outline-none"
+                >
+                  Search
+                </button>
+              </form>
+
+              {/* Tags */}
+              <div className="mt-6 flex flex-wrap justify-center md:justify-start gap-2 text-sm">
+                {['Design','Development','Lifestyle','Trending','Tutorials'].map((t) => (
+                  <span
+                    key={t}
+                    className="px-3 py-1 rounded-full bg-white/70 border border-gray-100 text-gray-700 shadow-sm"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Right column: image / illustration */}
+            <div className="order-1 md:order-2 flex items-center justify-center">
+              <div className="w-full max-w-xl rounded-2xl overflow-hidden shadow-md ring-1 ring-black/5">
+                {/* Responsive image with preserved aspect ratio */}
+                <div className="relative aspect-[16/10] sm:aspect-[16/9]">
+                  <img
+                    src={'https://images.unsplash.com/photo-1503264116251-35a269479413?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=000000'}
+                    alt="People reading articles and writing notes — TrendyBlogs" 
+                    className="object-cover w-full h-full"
+                    loading="lazy"
+                  />
+
+                  {/* Decorative overlay */}
+                  <div className="absolute left-4 bottom-4 bg-white/70 backdrop-blur-sm rounded-lg px-3 py-2 text-xs font-medium text-gray-800 shadow">
+                    Daily picks • Curated • Fresh
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
-      </div>
 
-      {/* Subtle glow at bottom */}
-      <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-blue-200 via-transparent to-transparent"></div>
-    </section>
+        {/* Subtle decorative shapes for larger screens */}
+        <div className="pointer-events-none absolute -bottom-10 -left-20 w-72 h-72 bg-gradient-to-tr from-indigo-200 to-transparent rounded-full opacity-40 blur-3xl hidden lg:block" aria-hidden="true"></div>
+        <div className="pointer-events-none absolute -top-10 -right-16 w-56 h-56 bg-gradient-to-br from-cyan-100 to-transparent rounded-full opacity-40 blur-3xl hidden lg:block" aria-hidden="true"></div>
+
+      </div>
+    </header>
   );
 };
 

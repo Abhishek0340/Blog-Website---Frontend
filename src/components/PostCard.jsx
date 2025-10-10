@@ -89,8 +89,8 @@ const PostCard = () => {
 
           </div>
         ) : (
-          <div key={cat} className="bg-white text-center rounded shadow p-4 mb-4 hover:shadow-lg transition">
-            <h3>No posts found for {cat}</h3>
+          <div key={cat} className="bg-white hidden text-center rounded shadow p-4 mb-4 hover:shadow-lg transition">
+            <h3 >No posts found for {cat}</h3>
           </div>
         );
       })}
