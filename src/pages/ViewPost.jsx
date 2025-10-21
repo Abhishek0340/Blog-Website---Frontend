@@ -74,12 +74,14 @@ const ViewPost = () => {
               </h1>
               {/* Thumbnail */}
               {post.thumbnail && (
-                <img
-                  src={post.thumbnail}
-                  alt={post.title}
-                  className="w-full h-1/3 object-fill md:h-96 rounded-xl shadow mb-6"
-                />
-              )}
+  <div className="w-full aspect-[16/9] bg-gray-100 rounded-xl overflow-hidden shadow mb-6">
+    <img
+      src={post.thumbnail}
+      alt={post.title}
+      className="w-full h-full object-cover transition-transform duration-300 hover:scale-[1.02]"
+    />
+  </div>
+)}
               {/* Category + Date */}
               <div className="flex items-center justify-between mb-4">
                 <span className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow">
