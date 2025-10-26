@@ -1,0 +1,104 @@
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import DashboardLayout from "../pages/DashboardLayout";
+import Spinner from "../components/Spinner";
+
+const AllUsers = () => {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const isAdmin = localStorage.getItem("isAdmin") === "true";
+
+  useEffect(() => {
+    if (!isAdmin) {
+      navigate("/dashboard");
+      return;
+    }
+
+    const fetchUsers = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch("https://blog-website-backend-wcn7.onrender.com/api/register?isAdmin=true");
+        const data = await res.json();
+        if (res.ok) {
+          setUsers(data);
+        } else {
+          setError(data.error || "Failed to fetch users.");
+        }
+      } catch (err) {
+        setError("Error connecting to server.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+  }, [isAdmin, navigate]);
+
+  return (
+    <DashboardLayout>
+      <div className="p-6">
+        <h1 className="text-2xl font-bold text-gray-800 mb-6">👥 All Registered Users</h1>
+
+        {loading ? (
+          <div className="flex justify-center text-gray-500">
+            <Spinner />
+          </div>
+        ) : error ? (
+          <div className="text-center text-red-500">{error}</div>
+        ) : users.length === 0 ? (
+          <div className="text-center text-gray-500">No registered users found.</div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm">
+              <thead className="bg-gray-100 border-b border-gray-200">
+                <tr>
+                  <th className="text-left px-4 py-2 text-sm font-semibold text-gray-700">
+                    Username
+                  </th>
+                  <th className="text-left px-4 py-2 text-sm font-semibold text-gray-700">
+                    Email
+                  </th>
+                  <th className="text-left px-4 py-2 text-sm font-semibold text-gray-700">
+                    Role
+                  </th>
+                  <th className="text-left px-4 py-2 text-sm font-semibold text-gray-700">
+                    Joined
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((user) => (
+                  <tr
+                    key={user._id}
+                    className="border-b border-gray-200 hover:bg-gray-50 transition"
+                  >
+                    <td className="px-4 py-2 text-sm text-gray-800 font-medium">
+                      {user.username}
+                    </td>
+                    <td className="px-4 py-2 text-sm text-gray-600">{user.email}</td>
+                    <td className="px-4 py-2 text-sm">
+                      {user.isAdmin ? (
+                        <span className="text-purple-600 font-semibold">Admin</span>
+                      ) : (
+                        <span className="text-gray-700">User</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-2 text-sm text-gray-500">
+                      {user.createdAt
+                        ? new Date(user.createdAt).toLocaleDateString()
+                        : "-"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    </DashboardLayout>
+  );
+};
+
+export default AllUsers;

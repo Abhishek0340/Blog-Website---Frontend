@@ -15,7 +15,7 @@ import TermsAndConditions from './pages/TermsAndConditions';
 import Support from './pages/Support';
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
-
+import AllUsers from "./Admin/AllUsers"
 
 const App = () => {
   return (
@@ -45,6 +45,11 @@ const App = () => {
           <Route path="/dashboard" element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          } />
+           <Route path="/users" element={
+            <ProtectedRoute>
+              <AllUsers />
             </ProtectedRoute>
           } />
           <Route path="/profile" element={
