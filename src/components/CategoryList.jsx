@@ -11,6 +11,8 @@ const categories = [
 
 
 const CategoryList = () => (
+  <div className=''>
+    
   <div className="flex flex-wrap gap-3 justify-center my-5">
     {categories.map(cat => (
       <Link
@@ -22,6 +24,8 @@ const CategoryList = () => (
         <span className="text-base">{cat.name}</span>
       </Link>
     ))}
+  </div>
+  
   </div>
 );
 

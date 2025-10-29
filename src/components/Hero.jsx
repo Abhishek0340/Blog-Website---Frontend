@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <header className="w-full">
+    <header className="w-full ">
       <div className="relative overflow-hidden ">
         <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-12 md:py-20">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -62,7 +62,7 @@ const Hero = () => {
                 {/* Responsive image with preserved aspect ratio */}
                 <div className="relative aspect-[16/10] sm:aspect-[16/9]">
                   <img
-                    src={'https://i.ibb.co/mjZPQ1X/trendyblogs-hero-image.png'}
+                    src={'https://i.ibb.co/bMPyvh9f/trendyblogs-hero-image.png'}
                     alt="People reading articles and writing notes — TrendyBlogs"
                     className="object-cover w-full h-full"
                     loading="lazy"

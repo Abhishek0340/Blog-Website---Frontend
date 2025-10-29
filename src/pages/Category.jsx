@@ -69,6 +69,8 @@ const Category = () => {
         <meta property="og:url" content={`https://yourblogwebsite.com/category/${name}`} />
       </Helmet>
       <Navbar />
+      <div className='hidden'>
+        
       <div className="min-h-screen  flex flex-col bg-gray-50">
         {/* Sticky header with gradient and controls */}
         <div className=" top-0 z-10  w-full bg-gradient-to-r from-white via-white to-gray-100 shadow-md py-6 px-4 mb-8">
@@ -136,6 +138,7 @@ const Category = () => {
             </div>
           )}
         </main>
+      </div>
       </div>
 
       <Footer />

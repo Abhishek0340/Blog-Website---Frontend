@@ -12,7 +12,7 @@ const Navbar = () => {
   const isAuthenticated = !!localStorage.getItem("authToken");
 
   return (
-    <header className="w-full bg-white border-b border-gray-200 sticky top-0 z-50">
+    <header className="w-full bg-white border-b    border-gray-200 top-0 z-50">
       <div className="w-full mx-auto flex items-center justify-between px-6 py-3 relative">
         {/* Logo */}
         <Link to="/" className="flex items-center">

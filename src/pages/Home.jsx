@@ -20,7 +20,7 @@ const Home = () => {
         <meta property="og:url" content="https://yourblogwebsite.com" />
       
       </Helmet>
-      <Navbar />
+      <Navbar  />
       <div className="w-full" style={{ background: '#fff' }}>
         <div className=" mx-auto">
           <Hero />
