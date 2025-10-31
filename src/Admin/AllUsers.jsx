@@ -50,10 +50,10 @@ const AllUsers = () => {
         ) : users.length === 0 ? (
           <div className="text-center text-gray-500">No registered users found.</div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm">
-              <thead className="bg-gray-100 border-b border-gray-200">
-                <tr>
+          <div className="overflow-x-auto ">
+            <table className="min-w-full    rounded-lg shadow-sm">
+              <thead className=" ">
+                <tr className="border-b border-gray-200 hover:bg-gray-50 transition">
                   <th className="text-left px-4 py-2 text-sm font-semibold text-gray-700">
                     Username
                   </th>

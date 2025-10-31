@@ -1,4 +1,3 @@
-
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
@@ -69,7 +68,7 @@ const Category = () => {
         <meta property="og:url" content={`https://yourblogwebsite.com/category/${name}`} />
       </Helmet>
       <Navbar />
-      <div className='hidden'>
+      <div className=''>
         
       <div className="min-h-screen  flex flex-col bg-gray-50">
         {/* Sticky header with gradient and controls */}
