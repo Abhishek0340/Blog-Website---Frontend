@@ -15,7 +15,7 @@ const DashboardLayout = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
 
-  const isAdmin = localStorage.getItem("isAdmin") === "true"; // ✅ detect admin
+  const isAdmin = localStorage.getItem("isAdmin") === "true"; 
 
   // Sidebar links
   const userSidebarLinks = [

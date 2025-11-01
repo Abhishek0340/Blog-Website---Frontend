@@ -31,11 +31,11 @@ const PostCard = () => {
 
   const categories = ["nature", "travel", "science", "technology"];
 
-  if (loading) return <div><Spinner /></div>;
+  if (loading) return <div className=""><Spinner /></div>;
   if (error) return <div className="text-center text-red-500">{error}</div>;
 
   return (
-    <div className="w-full bg-gray-50 py-12 px-5 sm:px-10 lg:px-20">
+    <div className="w-full  py-10 px-5 sm:px-10 lg:px-10">
       {categories.map((cat) => {
         const catPosts = getPostsByCategory(cat);
         return catPosts.length > 0 ? (
@@ -72,9 +72,15 @@ const PostCard = () => {
                           alt={post.title}
                           className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
                         />
+
                       </div>
                     )}
 
+                    <div className=" text-white items-center -mt-7 ">
+                      <span className="text-xs ">
+                        {post.authorGmail || "Unknown Author"}
+                      </span>
+                    </div>
                     {/* Content */}
                     <div className="p-5 flex flex-col flex-1">
                       <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 leading-snug group-hover:text-blue-600 transition-colors duration-300 line-clamp-2">
@@ -87,25 +93,24 @@ const PostCard = () => {
                         </p>
                       )}
 
+
+
                       <div
                         className="text-gray-700 text-sm mb-4 line-clamp-3"
                         dangerouslySetInnerHTML={{ __html: post.content }}
                       />
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/viewpost/${post._id}`);
+                        }}
+                        className="text-blue-600 w-full bg-blue-50 text-sm font-medium hover:underline"
+                      >
+                        Read More
+                      </button>
 
-                      <div className="mt-auto flex justify-between items-center pt-3 border-t border-gray-100">
-                        <span className="text-xs text-gray-500">
-                          {post.authorGmail || "Unknown Author"}
-                        </span>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            navigate(`/viewpost/${post._id}`);
-                          }}
-                          className="text-blue-600 text-sm font-medium hover:underline"
-                        >
-                          Read →
-                        </button>
-                      </div>
+
+
                     </div>
                   </div>
                 );

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
@@ -113,17 +112,31 @@ const ViewPost = () => {
                   </button>
                 </div>
               )}
-
               {/* Thumbnail */}
               {post.thumbnail && (
                 <div className="w-full mb-8">
-                  <img
-                    src={post.thumbnail}
-                    alt={post.title}
-                    className="w-full rounded-xl shadow-sm object-fill max-h-[350px] transition-transform duration-500 hover:scale-[1.02]"
-                  />
+                  <div className="relative w-full overflow-hidden rounded-xl shadow-sm">
+                    <img
+                      src={post.thumbnail}
+                      alt={post.title}
+                      className="
+          w-full 
+          h-auto 
+          max-h-[450px]
+          sm:max-h-[350px]
+          md:max-h-[400px]
+          lg:max-h-[500px]
+          xl:max-h-[600px]
+          object-cover 
+          transition-transform 
+          duration-500 
+          hover:scale-[1.03]
+        "
+                    />
+                  </div>
                 </div>
               )}
+
 
 
               {/* Subtitle */}
