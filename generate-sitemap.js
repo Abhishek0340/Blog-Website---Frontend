@@ -1,23 +1,48 @@
 const fs = require('fs');
 const path = require('path');
 
-
 const routes = [
-  '/',
-  '/login',
-  '/register',
-  '/dashboard',
-  '/post'
+  '/',                        // Home
+  '/login',                   // Login
+  '/register',                // Register
+  '/dashboard',               // User/Admin Dashboard
+  '/post',                    // Create/Edit Post
+  '/managepost',              // Manage Posts
+  '/category/:name',          // Category Page
+  '/viewpost/:id',            // View Post (ID only)
+  '/viewpost/:id/:blogName',  // View Post with SEO-friendly slug
+  '/profile',                 // User Profile
+  '/users',                   // Admin Users List
+  '/support',                 // Support Page
+  '/terms-and-conditions',    // Terms & Conditions
+  '/privacy-policy',          // Privacy Policy
+  '/*',                     // Not Found Page
 ];
 
-const domain = 'https://yourdomain.com'; 
+//  domain with your live site URL
+const domain = 'https://trendyblogs.site';
 
-const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${routes
+// Generate XML sitemap content
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${routes
   .map(
-    route => `  <url>\n    <loc>${domain}${route}</loc>\n    <priority>0.7</priority>\n  </url>`
+    (route) => `  <url>
+    <loc>${domain}${route.replace(/:.*?\b/g, '')}</loc>
+    <priority>${route === '/' ? '1.0' : '0.7'}</priority>
+  </url>`
   )
-  .join('\n')}\n</urlset>\n`;
+  .join('\n')}
+</urlset>`;
 
-const outputPath = path.join(__dirname, 'public', 'sitemap.xml');
+// Ensure 'public' directory exists
+const outputDir = path.join(__dirname, 'public');
+if (!fs.existsSync(outputDir)) {
+  fs.mkdirSync(outputDir);
+}
+
+// Write the sitemap file
+const outputPath = path.join(outputDir, 'sitemap.xml');
 fs.writeFileSync(outputPath, sitemap);
-console.log('Sitemap generated at', outputPath);
+
+console.log('✅ Sitemap generated successfully at:', outputPath);
