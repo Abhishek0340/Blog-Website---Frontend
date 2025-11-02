@@ -192,7 +192,7 @@
 //           </h1>
 //           <div className="w-full max-w-7xl mx-auto rounded border p-4 border-gray-200 ">
 //             <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
-              
+
 //               {/* Blog Name */}
 //               <div>
 //                 <label className="block font-semibold mb-2 text-gray-700" htmlFor="blogName">Blog Name</label>
@@ -576,8 +576,32 @@ const Post = () => {
   return (
     <>
       <Helmet>
-        <title>{isEditing ? 'Edit Post' : 'Create a Post'} | trendyblogs</title>
+        <title>{isEditing ? "Edit Blog Post" : "Create a New Blog Post"} | trendyblogs</title>
+        <meta
+          name="description"
+          content={
+            isEditing
+              ? "Edit your existing blog post on trendyblogs. Update content, categories, thumbnails, and keywords easily."
+              : "Create and publish your own blog on trendyblogs. Add title, subtitle, content, category, images, and more to share your story."
+          }
+        />
+        <meta
+          name="keywords"
+          content="create blog, edit blog, trendyblogs, write blog, post editor, blogging platform, publish article"
+        />
+        <meta property="og:title" content={isEditing ? "Edit Blog Post | trendyblogs" : "Create a New Blog Post | trendyblogs"} />
+        <meta
+          property="og:description"
+          content={
+            isEditing
+              ? "Update your blog post content, images, and metadata on trendyblogs."
+              : "Start blogging on trendyblogs — create and share your own posts across multiple categories."
+          }
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://trendyblogs.site/post" />
       </Helmet>
+
       <DashboardLayout>
         <div className="p-6">
           <h1 className="text-2xl font-bold text-gray-800 mb-6">
@@ -585,7 +609,7 @@ const Post = () => {
           </h1>
           <div className="w-full max-w-7xl mx-auto rounded border p-4 border-gray-200">
             <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
-              
+
               {/* Blog Name */}
               <div>
                 <label className="block font-semibold mb-2 text-gray-700">Blog Name / Topic</label>
@@ -604,9 +628,8 @@ const Post = () => {
                 type="button"
                 onClick={handleAIGenerate}
                 disabled={loadingAI}
-                className={`px-6 py-2 font-semibold rounded-xl text-white transition ${
-                  loadingAI ? 'bg-gray-400 cursor-wait' : 'bg-green-700 hover:bg-green-800'
-                }`}
+                className={`hidden px-6 py-2 font-semibold rounded-xl text-white transition ${loadingAI ? 'bg-gray-400 cursor-wait' : 'bg-green-700 hover:bg-green-800'
+                  }`}
               >
                 {loadingAI ? 'Generating...' : '✨ Auto-Generate Blog'}
               </button>

@@ -11,14 +11,13 @@ const Home = () => {
     <>
       {/* SEO Meta Tags */}
       <Helmet>
-        <title>Home | trendyblogs</title>
+        <title>trendyblogs</title>
         <meta name="description" content="Welcome to the trendyblogs homepage. Discover trending posts, categories, and join our blogging community." />
         <meta name="keywords" content="blog, homepage, trending, categories, posts, community" />
-        <meta property="og:title" content="Home | trendyblogs" />
+        <meta property="og:title" content="trendyblogs" />
         <meta property="og:description" content="Discover trending posts and categories on our blog homepage." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://yourblogwebsite.com" />
-      
+        <meta property="og:url" content="https://trendyblogs.site/" />
       </Helmet>
       <Navbar  />
       <div className="w-full" style={{ background: '#fff' }}>

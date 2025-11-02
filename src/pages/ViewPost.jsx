@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Spinner from "../components/Spinner";
+import { Helmet } from "react-helmet";
 
 function imageifyHtml(html) {
   if (!html) return "";
@@ -81,6 +82,25 @@ const ViewPost = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{post ? `${post.title} | trendyblogs` : "View Post | trendyblogs"}</title>
+        <meta
+          name="description"
+          content={post ? post.subtitle || `Read "${post.title}" on trendyblogs. Explore insights, stories, and ideas in the ${post.category} category.` : "Read detailed blog posts on trendyblogs."}
+        />
+        <meta
+          name="keywords"
+          content={post ? post.keywords || "blog, post, article, trendyblogs" : "blog, post, article, trendyblogs"}
+        />
+        <meta property="og:title" content={post ? `${post.title} | trendyblogs` : "View Post | trendyblogs"} />
+        <meta
+          property="og:description"
+          content={post ? post.subtitle || `Read "${post.title}" on trendyblogs.` : "Explore insightful articles on trendyblogs."}
+        />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={`https://trendyblogs.site/viewpost/:id/:blogName`} />
+      </Helmet>
+
       <Navbar />
       <div className=" flex flex-col items-center  px-4 sm:px-6  ">
         {loading ? (
@@ -119,25 +139,11 @@ const ViewPost = () => {
                     <img
                       src={post.thumbnail}
                       alt={post.title}
-                      className="
-          w-full 
-          h-auto 
-          max-h-[450px]
-          sm:max-h-[350px]
-          md:max-h-[400px]
-          lg:max-h-[500px]
-          xl:max-h-[600px]
-          object-cover 
-          transition-transform 
-          duration-500 
-          hover:scale-[1.03]
-        "
+                      className="w-full  h-auto  max-h-[450px] sm:max-h-[350px] md:max-h-[400px] lg:max-h-[500px] xl:max-h-[600px] object-cover  transition-transform  duration-500  hover:scale-[1.03]"
                     />
                   </div>
                 </div>
               )}
-
-
 
               {/* Subtitle */}
               {post.subtitle && (

@@ -46,16 +46,36 @@ const Dashboard = () => {
   return (
     <>
       <Helmet>
-        <title>{isAdmin ? "Admin Dashboard | trendyblogs" : "Dashboard | trendyblogs"}</title>
+        <title>{isAdmin ? "Admin Dashboard | trendyblogs" : "User Dashboard | trendyblogs"}</title>
         <meta
           name="description"
           content={
             isAdmin
-              ? "Manage users, posts, and categories on the admin dashboard."
-              : "View your blog stats, recent posts, and manage your content on your dashboard."
+              ? "Access the trendyblogs admin dashboard to manage users, posts, and categories efficiently."
+              : "Welcome to your trendyblogs dashboard. View stats, manage your posts, and explore recent updates."
           }
         />
+        <meta
+          name="keywords"
+          content={
+            isAdmin
+              ? "admin dashboard, manage blogs, user management, post management, trendyblogs admin"
+              : "user dashboard, blog management, recent posts, trendyblogs user panel"
+          }
+        />
+        <meta property="og:title" content={isAdmin ? "Admin Dashboard | trendyblogs" : "User Dashboard | trendyblogs"} />
+        <meta
+          property="og:description"
+          content={
+            isAdmin
+              ? "Manage users, posts, and categories from the trendyblogs admin dashboard."
+              : "Check your recent posts, stats, and manage content easily on your trendyblogs dashboard."
+          }
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://trendyblogs.site/dashboard" />
       </Helmet>
+
 
       <DashboardLayout>
         <div className="p-6">

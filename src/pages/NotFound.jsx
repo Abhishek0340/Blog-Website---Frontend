@@ -13,17 +13,32 @@ const NotFound = () => {
     <>
       <Helmet>
         <title>404 Not Found | trendyblogs</title>
-        <meta name="description" content="Page not found on trendyblogs." />
+        <meta
+          name="description"
+          content="Oops! The page you’re looking for could not be found on trendyblogs. Return home to explore trending blogs and categories."
+        />
+        <meta
+          name="keywords"
+          content="404, not found, error page, missing page, trendyblogs, broken link"
+        />
+        <meta property="og:title" content="404 Not Found | trendyblogs" />
+        <meta
+          property="og:description"
+          content="Sorry, the page you are looking for does not exist on trendyblogs. Visit our homepage to discover trending posts."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://trendyblogs.site/*" />
       </Helmet>
+
       <Navbar />
-    
+
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4">
         <svg width="160" height="160" viewBox="0 0 160 160" fill="none" className="mb-8">
-          <circle cx="80" cy="80" r="78" stroke="#E5E7EB" strokeWidth="4" fill="#F3F4F6"/>
-          <ellipse cx="80" cy="110" rx="40" ry="10" fill="#E5E7EB"/>
-          <circle cx="60" cy="70" r="8" fill="#9CA3AF"/>
-          <circle cx="100" cy="70" r="8" fill="#9CA3AF"/>
-          <path d="M60 100 Q80 120 100 100" stroke="#9CA3AF" strokeWidth="4" fill="none" strokeLinecap="round"/>
+          <circle cx="80" cy="80" r="78" stroke="#E5E7EB" strokeWidth="4" fill="#F3F4F6" />
+          <ellipse cx="80" cy="110" rx="40" ry="10" fill="#E5E7EB" />
+          <circle cx="60" cy="70" r="8" fill="#9CA3AF" />
+          <circle cx="100" cy="70" r="8" fill="#9CA3AF" />
+          <path d="M60 100 Q80 120 100 100" stroke="#9CA3AF" strokeWidth="4" fill="none" strokeLinecap="round" />
           <text x="80" y="50" textAnchor="middle" fontSize="32" fill="#9CA3AF" fontWeight="bold">404</text>
         </svg>
         <h1 className="text-3xl font-bold text-gray-800 mb-2">Page Not Found</h1>
@@ -36,7 +51,7 @@ const NotFound = () => {
         </button>
       </div>
 
-    
+
       <Footer />
     </>
   );

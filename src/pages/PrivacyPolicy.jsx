@@ -1,11 +1,31 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import Helmet from "react-helmet";
 
 const PrivacyPolicy = () => (
   <>
+  <Helmet>
+  <title>Privacy Policy | trendyblogs</title>
+  <meta
+    name="description"
+    content="Read the trendyblogs Privacy Policy to understand how we collect, use, and protect your personal information when you visit our website."
+  />
+  <meta
+    name="keywords"
+    content="privacy policy, data protection, user privacy, trendyblogs policy, personal information, cookies, data security"
+  />
+  <meta property="og:title" content="Privacy Policy | trendyblogs" />
+  <meta
+    property="og:description"
+    content="Learn how trendyblogs safeguards your privacy and handles your personal information responsibly."
+  />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://trendyblogs.site/privacy-policy" />
+</Helmet>
+
     <Navbar />
-    <div className="max-w-3xl mx-auto px-4 py-10">
+    <div className=" mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold mb-4">Privacy Policy</h1>
       <p className="mb-4">
         At trendyblogs, we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you visit our website.

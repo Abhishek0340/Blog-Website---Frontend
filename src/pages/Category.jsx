@@ -65,7 +65,7 @@ const Category = () => {
         <meta property="og:title" content={name ? `${name} Category | trendyblogs` : "Category | trendyblogs"} />
         <meta property="og:description" content={name ? `Browse posts in the ${name} category on trendyblogs.` : "Browse posts by category on trendyblogs."} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={`https://yourblogwebsite.com/category/${name}`} />
+        <meta property="og:url" content={`https://trendyblogs.site/category/${name}`} />
       </Helmet>
       <Navbar />
       <div className=''>

@@ -2,7 +2,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";  
+import Footer from "../components/Footer";
+import { Helmet } from "react-helmet";
 
 const Register = () => {
   const [form, setForm] = useState({
@@ -56,10 +57,10 @@ const Register = () => {
       if (data.user) {
         // ✅ Save backend user response
         localStorage.setItem("authUser", JSON.stringify(data.user));
-        localStorage.setItem("authToken", "true"); 
+        localStorage.setItem("authToken", "true");
       }
 
-      navigate("/login"); 
+      navigate("/login");
     } catch (err) {
       setError("Server error. Please try again later.");
     }
@@ -67,6 +68,25 @@ const Register = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Sign Up | trendyblogs</title>
+        <meta
+          name="description"
+          content="Create your trendyblogs account to publish and explore amazing blogs on various topics. Join the community of writers and readers today."
+        />
+        <meta
+          name="keywords"
+          content="register, sign up, trendyblogs, blog registration, blogging platform, create account"
+        />
+        <meta property="og:title" content="Sign Up | trendyblogs" />
+        <meta
+          property="og:description"
+          content="Join trendyblogs to share your thoughts, publish blogs, and connect with a vibrant writing community."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://trendyblogs.site/register" />
+      </Helmet>
+
       <Navbar />
       <div className=" flex flex-col items-center bg-gray-50 px-4">
         {/* Signup Form Container */}

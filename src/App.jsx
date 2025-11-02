@@ -17,17 +17,29 @@ import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
 import AllUsers from "./Admin/AllUsers"
 
+
 const App = () => {
   return (
     <>
       <Helmet>
-        <title>trendyblogs - Share and Discover Posts</title>
-        <meta name="description" content="A modern trendyblogs to share, discover, and read posts on various categories. Join our community and start blogging today!" />
-        <meta name="keywords" content="blog, posts, categories, community, writing, reading, discover" />
-        <meta property="og:title" content="trendyblogs - Share and Discover Posts" />
-        <meta property="og:description" content="A modern trendyblogs to share, discover, and read posts on various categories." />
-        <meta property="og:url" content="https://yourblogwebsite.com" />
+        <title>trendyblogs | Share and Discover Trending Posts</title>
+        <meta
+          name="description"
+          content="Welcome to trendyblogs — a modern blogging platform to share, read, and discover posts across multiple categories. Join our community of writers and readers today!"
+        />
+        <meta
+          name="keywords"
+          content="trendyblogs, blog, blogging platform, trending posts, share articles, read blogs, write blog, community"
+        />
+        <meta property="og:title" content="trendyblogs | Share and Discover Trending Posts" />
+        <meta
+          property="og:description"
+          content="Explore, write, and share blogs on trendyblogs. Join our growing blogging community today."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://trendyblogs.site/" />
       </Helmet>
+
       <Router>
         <Routes>
           <Route path="*" element={<NotFound />} />
@@ -47,7 +59,7 @@ const App = () => {
               <Dashboard />
             </ProtectedRoute>
           } />
-           <Route path="/users" element={
+          <Route path="/users" element={
             <ProtectedRoute>
               <AllUsers />
             </ProtectedRoute>
@@ -62,7 +74,7 @@ const App = () => {
               <Post />
             </ProtectedRoute>
           } />
-         
+
           <Route path="/managepost" element={
             <ProtectedRoute>
               <ManagePost />
