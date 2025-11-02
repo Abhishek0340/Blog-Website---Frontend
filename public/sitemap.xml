@@ -1,31 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://yourdomain.com/</loc>
+    <loc>https://trendyblogs.site/</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://yourdomain.com/login</loc>
+    <loc>https://trendyblogs.site/login</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://yourdomain.com/register</loc>
+    <loc>https://trendyblogs.site/register</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://yourdomain.com/dashboard</loc>
+    <loc>https://trendyblogs.site/dashboard</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://yourdomain.com/profile</loc>
+    <loc>https://trendyblogs.site/profile</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://yourdomain.com/category</loc>
+    <loc>https://trendyblogs.site/managepost</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trendyblogs.site/users</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trendyblogs.site/post</loc>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://yourdomain.com/post</loc>
+    <loc>https://trendyblogs.site/category</loc>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://trendyblogs.site/viewpost</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://trendyblogs.site/terms-and-conditions</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://trendyblogs.site/privacy-policy</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://trendyblogs.site/support</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://trendyblogs.site/*</loc>
+    <priority>0.3</priority>
   </url>
 </urlset>
