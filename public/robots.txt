@@ -1,0 +1,16 @@
+# robots.txt for https://trendyblogs.site/
+User-agent: *
+
+# Allow all content to be indexed
+Allow: /
+
+# Block sensitive or unnecessary backend routes
+Disallow: /api/
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /login
+Disallow: /register
+Disallow: /managepost
+
+# Sitemap location
+Sitemap: https://trendyblogs.site/sitemap.xml

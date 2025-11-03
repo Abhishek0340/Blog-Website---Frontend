@@ -18,6 +18,7 @@ const Home = () => {
         <meta property="og:description" content="Discover trending posts and categories on our blog homepage." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://trendyblogs.site/" />
+        <link rel="canonical" href="https://trendyblogs.site/" />
       </Helmet>
       <Navbar  />
       <div className="w-full" style={{ background: '#fff' }}>

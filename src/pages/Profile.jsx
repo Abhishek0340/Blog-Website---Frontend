@@ -47,6 +47,7 @@ const Profile = () => {
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://trendyblogs.site/profile" />
+        <link rel="canonical" href="https://trendyblogs.site/profile" />
       </Helmet>
 
       <DashboardLayout>

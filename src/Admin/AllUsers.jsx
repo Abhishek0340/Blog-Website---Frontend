@@ -55,7 +55,8 @@ const AllUsers = () => {
           content="Access the trendyblogs admin dashboard to view and manage all registered users efficiently."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://trendyblogs.site/dashboard/users" />
+        <meta property="og:url" content="https://trendyblogs.site/users" />
+         <link rel="canonical" href="https://trendyblogs.site/users" />
       </Helmet>
 
       <DashboardLayout>

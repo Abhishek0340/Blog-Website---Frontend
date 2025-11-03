@@ -25,6 +25,7 @@ const TermsAndConditions = () => (
         property="og:url"
         content="https://trendyblogs.site/terms-and-conditions"
       />
+      <link rel="canonical" href="https://trendyblogs.site/terms-and-conditions" />
     </Helmet>
 
     <Navbar />

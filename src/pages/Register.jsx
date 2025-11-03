@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
@@ -85,6 +84,7 @@ const Register = () => {
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://trendyblogs.site/register" />
+        <link rel="canonical" href="https://trendyblogs.site/register" />
       </Helmet>
 
       <Navbar />

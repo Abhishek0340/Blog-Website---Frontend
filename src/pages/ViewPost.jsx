@@ -99,6 +99,7 @@ const ViewPost = () => {
         />
         <meta property="og:type" content="article" />
         <meta property="og:url" content={`https://trendyblogs.site/viewpost/:id/:blogName`} />
+        <link rel="canonical" href="https://trendyblogs.site/viewpost/:id/:blogName" />
       </Helmet>
 
       <Navbar />
