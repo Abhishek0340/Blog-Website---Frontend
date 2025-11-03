@@ -236,6 +236,7 @@ const Post = () => {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://trendyblogs.site/post" />
         <link rel="canonical" href="https://trendyblogs.site/post" />
+        <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
       <DashboardLayout>

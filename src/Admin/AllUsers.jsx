@@ -56,7 +56,9 @@ const AllUsers = () => {
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://trendyblogs.site/users" />
-         <link rel="canonical" href="https://trendyblogs.site/users" />
+        <link rel="canonical" href="https://trendyblogs.site/users" />
+        <meta name="robots" content="noindex, nofollow" />
+        <link rel="alternate" href={`https://trendyblogs.site${window.location.pathname}`} hreflang="en" />
       </Helmet>
 
       <DashboardLayout>

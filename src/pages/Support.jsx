@@ -72,6 +72,7 @@ const Support = () => (
       <meta property="og:type" content="website" />
       <meta property="og:url" content="https://trendyblogs.site/support" />
       <link rel="canonical" href="https://trendyblogs.site/support" />
+      <meta name="robots" content="noindex, nofollow" />
     </Helmet>
 
     <Navbar />

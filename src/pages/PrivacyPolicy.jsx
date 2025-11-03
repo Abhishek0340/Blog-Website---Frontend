@@ -23,6 +23,7 @@ const PrivacyPolicy = () => (
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://trendyblogs.site/privacy-policy" />
   <link rel="canonical" href="https://trendyblogs.site/privacy-policy" />
+  <meta name="robots" content="noindex, nofollow" />
 </Helmet>
 
     <Navbar />

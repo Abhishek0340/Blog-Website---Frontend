@@ -93,6 +93,7 @@ const Login = () => {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://trendyblogs.site/login" />
         <link rel="canonical" href="https://trendyblogs.site/login" />
+        <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
       <Navbar />

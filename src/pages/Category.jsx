@@ -67,6 +67,8 @@ const Category = () => {
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`https://trendyblogs.site/category/${name}`} />
         <link rel="canonical" href={`https://trendyblogs.site/category/${name}`} />
+        <meta name="robots" content="noindex, nofollow" />
+        <link rel="alternate" href={`https://trendyblogs.site${window.location.pathname}`} hreflang="en" />
       </Helmet>
       <Navbar />
       <div className=''>
