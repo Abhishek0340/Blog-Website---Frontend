@@ -82,9 +82,28 @@ const Hero = () => {
           {/* Decorative shapes */}
           <div className="pointer-events-none absolute -bottom-10 -left-20 w-72 h-72 bg-gradient-to-tr from-indigo-200 to-transparent rounded-full opacity-40 blur-3xl hidden lg:block" aria-hidden="true"></div>
           <div className="pointer-events-none absolute -top-10 -right-16 w-56 h-56 bg-gradient-to-br from-cyan-100 to-transparent rounded-full opacity-40 blur-3xl hidden lg:block" aria-hidden="true"></div>
-     
+
         </div>
       </header>
+
+      <div
+        className="my-6 flex justify-center"
+        dangerouslySetInnerHTML={{
+          __html: `
+      <script type="text/javascript">
+        atOptions = {
+          'key' : 'e388e44e3a6868b0a1513fbf73d52e60',
+          'format' : 'iframe',
+          'height' : 90,
+          'width' : 728,
+          'params' : {}
+        };
+      </script>
+      <script type="text/javascript" src="https://www.highperformanceformat.com/e388e44e3a6868b0a1513fbf73d52e60/invoke.js"></script>
+    `,
+        }}
+      />
+
     </>
   );
 };
