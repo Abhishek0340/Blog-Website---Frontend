@@ -16,7 +16,7 @@ function imageifyHtml(html) {
 }
 
 const ViewPost = () => {
-  const { id, blogName } = useParams();
+  const { blogName } = useParams();
   const navigate = useNavigate();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -32,23 +32,24 @@ const ViewPost = () => {
         const res = await fetch("https://blog-website-backend-wcn7.onrender.com/api/posts");
         if (!res.ok) throw new Error("Failed to fetch posts");
         const data = await res.json();
-        const found = data.find((p) => p._id === id);
-        if (!found) throw new Error("Post not found");
-        setPost(found);
 
-        if (found && found.category) {
-          const relatedArticles = data.filter(
-            (p) => p.category === found.category && p._id !== id
-          );
-          setRelated(relatedArticles);
-        }
-
-        if (!blogName && found) {
-          const slug = (found.blogName || found.title || "")
+        // Find post by slug (no ID needed)
+        const found = data.find((p) => {
+          const slug = (p.blogName || p.title || "")
             .toLowerCase()
             .replace(/[^a-z0-9]+/g, "-")
             .replace(/^-+|-+$/g, "");
-          navigate(`/viewpost/${id}/${slug}`, { replace: true });
+          return slug === blogName;
+        });
+
+        if (!found) throw new Error("Post not found");
+        setPost(found);
+
+        if (found.category) {
+          const relatedArticles = data.filter(
+            (p) => p.category === found.category && p._id !== found._id
+          );
+          setRelated(relatedArticles);
         }
       } catch (err) {
         setError(err.message);
@@ -58,14 +59,15 @@ const ViewPost = () => {
     };
 
     fetchPost();
-  }, [id, blogName, navigate]);
+  }, [blogName]);
 
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this post?")) return;
     try {
-      const res = await fetch(`https://blog-website-backend-wcn7.onrender.com/api/posts/${id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `https://blog-website-backend-wcn7.onrender.com/api/posts/${post._id}`,
+        { method: "DELETE" }
+      );
       if (res.ok) {
         alert("Post deleted successfully.");
         navigate("/dashboard");
@@ -83,35 +85,71 @@ const ViewPost = () => {
   return (
     <>
       <Helmet>
-        <title>{post ? `${post.title} | trendyblogs` : "View Post | trendyblogs"}</title>
+        <title>
+          {post ? `${post.title} | trendyblogs` : "View Post | trendyblogs"}
+        </title>
         <meta
           name="description"
-          content={post ? post.subtitle || `Read "${post.title}" on trendyblogs. Explore insights, stories, and ideas in the ${post.category} category.` : "Read detailed blog posts on trendyblogs."}
+          content={
+            post
+              ? post.subtitle ||
+                `Read "${post.title}" on trendyblogs. Explore insights, stories, and ideas in the ${post.category} category.`
+              : "Read detailed blog posts on trendyblogs."
+          }
         />
         <meta
           name="keywords"
-          content={post ? post.keywords || "blog, post, article, trendyblogs" : "blog, post, article, trendyblogs"}
+          content={
+            post
+              ? post.keywords || "blog, post, article, trendyblogs"
+              : "blog, post, article, trendyblogs"
+          }
         />
         <meta property="og:title" content={post ? `${post.title} | trendyblogs` : "View Post | trendyblogs"} />
         <meta
           property="og:description"
-          content={post ? post.subtitle || `Read "${post.title}" on trendyblogs.` : "Explore insightful articles on trendyblogs."}
+          content={
+            post
+              ? post.subtitle || `Read "${post.title}" on trendyblogs.`
+              : "Explore insightful articles on trendyblogs."
+          }
         />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content={`https://trendyblogs.site/viewpost/:id/:blogName`} />
-        <link rel="canonical" href="https://trendyblogs.site/viewpost/:id/:blogName" />
-        <meta name="robots" content="noindex, nofollow" />
+        <meta
+          property="og:url"
+          content={
+            post
+              ? `https://trendyblogs.site/blog/${(post.blogName || post.title || "")
+                  .toLowerCase()
+                  .replace(/[^a-z0-9]+/g, "-")
+                  .replace(/^-+|-+$/g, "")}`
+              : "https://trendyblogs.site/blog"
+          }
+        />
+        <link
+          rel="canonical"
+          href={
+            post
+              ? `https://trendyblogs.site/blog/${(post.blogName || post.title || "")
+                  .toLowerCase()
+                  .replace(/[^a-z0-9]+/g, "-")
+                  .replace(/^-+|-+$/g, "")}`
+              : "https://trendyblogs.site/blog"
+          }
+        />
+        <meta name="robots" content="index, follow" />
       </Helmet>
 
       <Navbar />
-      <div className=" flex flex-col items-center  px-4 sm:px-6  ">
+      <div className="flex flex-col items-center px-4 sm:px-6">
         {loading ? (
           <Spinner />
-
+        ) : error ? (
+          <div className="text-red-500 mt-10">{error}</div>
         ) : post ? (
-          <div className="w-full  flex flex-col lg:flex-row gap-0">
+          <div className="w-full flex flex-col lg:flex-row gap-0">
             {/* ===== Main Article ===== */}
-            <article className="flex-1 bg-white p-4 sm:p-10 ">
+            <article className="flex-1 bg-white p-4 sm:p-10">
               {/* Title */}
               <h1 className="text-2xl sm:text-4xl font-semibold text-gray-900 mb-4 leading-snug">
                 {post.title}
@@ -134,6 +172,7 @@ const ViewPost = () => {
                   </button>
                 </div>
               )}
+
               {/* Thumbnail */}
               {post.thumbnail && (
                 <div className="w-full mb-8">
@@ -141,7 +180,7 @@ const ViewPost = () => {
                     <img
                       src={post.thumbnail}
                       alt={post.title}
-                      className="w-full  h-auto  max-h-[450px] sm:max-h-[350px] md:max-h-[400px] lg:max-h-[500px] xl:max-h-[600px] object-cover  transition-transform  duration-500  hover:scale-[1.03]"
+                      className="w-full h-auto max-h-[450px] sm:max-h-[350px] md:max-h-[400px] lg:max-h-[500px] xl:max-h-[600px] object-cover transition-transform duration-500 hover:scale-[1.03]"
                     />
                   </div>
                 </div>
@@ -155,7 +194,7 @@ const ViewPost = () => {
               )}
 
               {/* Author */}
-              <div className="text-right -mt-15   text-white -ml-8 text-sm">
+              <div className="text-right text-sm text-gray-500">
                 {post.authorGmail || "Unknown Author"}
               </div>
 
@@ -200,7 +239,7 @@ const ViewPost = () => {
             </article>
 
             {/* ===== Related Articles ===== */}
-            <aside className="w-full lg:w-80 bg-white p-6  shadow border border-gray-100">
+            <aside className="w-full lg:w-80 bg-white p-6 shadow border border-gray-100">
               <h2 className="text-xl font-semibold text-gray-900 mb-5">
                 Related Articles
               </h2>
@@ -211,34 +250,35 @@ const ViewPost = () => {
                     No related articles found.
                   </p>
                 ) : (
-                  related.map((item) => (
-                    <div
-                      key={item._id}
-                      onClick={() =>
-                        navigate(
-                          `/viewpost/${item._id}/${(item.blogName || item.title || "")
-                            .toLowerCase()
-                            .replace(/[^a-z0-9]+/g, "-")
-                            .replace(/^-+|-+$/g, "")}`
-                        )
-                      }
-                      className="group flex items-center gap-4 p-2 rounded-lg hover:bg-gray-50 cursor-pointer transition"
-                    >
-                      {item.thumbnail && (
-                        <img
-                          src={item.thumbnail}
-                          alt={item.title}
-                          className="w-16 h-16 object-cover rounded-lg group-hover:scale-105 transition-transform"
-                        />
-                      )}
-                      <div>
-                        <h4 className="text-sm font-medium text-gray-800 line-clamp-2 group-hover:text-blue-600">
-                          {item.title}
-                        </h4>
-                        <p className="text-xs text-gray-500 mt-1">{item.category}</p>
+                  related.map((item) => {
+                    const slug = (item.blogName || item.title || "")
+                      .toLowerCase()
+                      .replace(/[^a-z0-9]+/g, "-")
+                      .replace(/^-+|-+$/g, "");
+                    return (
+                      <div
+                        key={item._id}
+                        onClick={() => navigate(`/blog/${slug}`)}
+                        className="group flex items-center gap-4 p-2 rounded-lg hover:bg-gray-50 cursor-pointer transition"
+                      >
+                        {item.thumbnail && (
+                          <img
+                            src={item.thumbnail}
+                            alt={item.title}
+                            className="w-16 h-16 object-cover rounded-lg group-hover:scale-105 transition-transform"
+                          />
+                        )}
+                        <div>
+                          <h4 className="text-sm font-medium text-gray-800 line-clamp-2 group-hover:text-blue-600">
+                            {item.title}
+                          </h4>
+                          <p className="text-xs text-gray-500 mt-1">
+                            {item.category}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  ))
+                    );
+                  })
                 )}
               </div>
             </aside>
