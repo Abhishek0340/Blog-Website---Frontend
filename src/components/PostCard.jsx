@@ -48,7 +48,7 @@ const PostCard = () => {
       )
       .slice(0, 3);
 
-  const categories = ["nature", "travel", "science", "technology"];
+  const categories = ["nature", "travel", "science", "technology", "finance"];
 
   if (loading)
     return (
@@ -60,11 +60,11 @@ const PostCard = () => {
   if (error) return <div className="text-center text-red-500">{error}</div>;
 
   return (
-    <div className="w-full py-10 px-5 sm:px-10 lg:px-16 bg-gray-50">
+    <div className="w-full  py-10 px-5 sm:px-10 lg:px-16 ">
       {categories.map((cat) => {
         const catPosts = getPostsByCategory(cat);
         return catPosts.length > 0 ? (
-          <section key={cat} className="mb-16 animate-fade-in">
+          <section key={cat} className="mb-16 animate-fade-in ">
             {/* Category Header */}
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-2xl sm:text-3xl font-semibold text-gray-800 capitalize">
@@ -74,7 +74,7 @@ const PostCard = () => {
             </div>
 
             {/* Grid Layout */}
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-8 sm:grid-cols-2  lg:grid-cols-3">
               {catPosts.map((post) => {
                 const blogNameSlug = (post.blogName || post.title || "")
                   .toLowerCase()
@@ -91,19 +91,19 @@ const PostCard = () => {
                   >
                     {/* Thumbnail */}
                     {post.thumbnail && (
-                      <div className="w-full h-52 overflow-hidden bg-gray-100">
+                      <div className="w-full h-52 p-3  overflow-hidden ">
                         <img
                           src={post.thumbnail}
                           alt={post.title}
                           loading="lazy"
-                          className="object-cover w-full h-full opacity-0 scale-105 group-hover:scale-110 transition-all duration-700 ease-in-out"
+                          className="object-cover w-full rounded-xl h-full opacity-0 scale-105 group-hover:scale-110 transition-all duration-700 ease-in-out"
                           onLoad={(e) => (e.target.style.opacity = 1)}
                         />
                       </div>
                     )}
 
                     {/* Author */}
-                    <div className="text-xs text-gray-500 px-5 pt-3 -mt-1">
+                    <div className="text-xs hidden text-gray-500 px-5 pt-3 -mt-1">
                       {post.authorGmail || "Unknown Author"}
                     </div>
 
@@ -132,7 +132,7 @@ const PostCard = () => {
                         }}
                         className="text-blue-600 w-full bg-blue-50 text-sm font-medium py-1 rounded-lg hover:bg-blue-100 transition"
                       >
-                        Read More →
+                        Read More 
                       </button>
                     </div>
                   </div>

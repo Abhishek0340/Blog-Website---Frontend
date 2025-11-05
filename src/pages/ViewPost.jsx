@@ -93,7 +93,7 @@ const ViewPost = () => {
           content={
             post
               ? post.subtitle ||
-                `Read "${post.title}" on trendyblogs. Explore insights, stories, and ideas in the ${post.category} category.`
+              `Read "${post.title}" on trendyblogs. Explore insights, stories, and ideas in the ${post.category} category.`
               : "Read detailed blog posts on trendyblogs."
           }
         />
@@ -120,9 +120,9 @@ const ViewPost = () => {
           content={
             post
               ? `https://trendyblogs.site/blog/${(post.blogName || post.title || "")
-                  .toLowerCase()
-                  .replace(/[^a-z0-9]+/g, "-")
-                  .replace(/^-+|-+$/g, "")}`
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, "-")
+                .replace(/^-+|-+$/g, "")}`
               : "https://trendyblogs.site/blog"
           }
         />
@@ -131,9 +131,9 @@ const ViewPost = () => {
           href={
             post
               ? `https://trendyblogs.site/blog/${(post.blogName || post.title || "")
-                  .toLowerCase()
-                  .replace(/[^a-z0-9]+/g, "-")
-                  .replace(/^-+|-+$/g, "")}`
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, "-")
+                .replace(/^-+|-+$/g, "")}`
               : "https://trendyblogs.site/blog"
           }
         />
@@ -155,28 +155,10 @@ const ViewPost = () => {
                 {post.title}
               </h1>
 
-              {/* Admin Controls */}
-              {isAdmin && (
-                <div className="flex gap-3 mb-5">
-                  <button
-                    onClick={handleEdit}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition text-sm"
-                  >
-                    ✏️ Edit
-                  </button>
-                  <button
-                    onClick={handleDelete}
-                    className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition text-sm"
-                  >
-                    🗑️ Delete
-                  </button>
-                </div>
-              )}
-
               {/* Thumbnail */}
               {post.thumbnail && (
-                <div className="w-full mb-8">
-                  <div className="relative w-full overflow-hidden rounded-xl shadow-sm">
+                <div className="w-full mb-4 mt-4">
+                  <div className="relative w-full overflow-hidden">
                     <img
                       src={post.thumbnail}
                       alt={post.title}
@@ -194,7 +176,7 @@ const ViewPost = () => {
               )}
 
               {/* Author */}
-              <div className="text-right text-sm text-gray-500">
+              <div className="text-right hidden text-sm text-gray-500">
                 {post.authorGmail || "Unknown Author"}
               </div>
 
@@ -239,7 +221,7 @@ const ViewPost = () => {
             </article>
 
             {/* ===== Related Articles ===== */}
-            <aside className="w-full lg:w-80 bg-white p-6 shadow border border-gray-100">
+            <aside className="w-full lg:w-80 bg-white p-6 shadow-sm">
               <h2 className="text-xl font-semibold text-gray-900 mb-5">
                 Related Articles
               </h2>
@@ -259,7 +241,7 @@ const ViewPost = () => {
                       <div
                         key={item._id}
                         onClick={() => navigate(`/blog/${slug}`)}
-                        className="group flex items-center gap-4 p-2 rounded-lg hover:bg-gray-50 cursor-pointer transition"
+                        className="group flex items-center gap-4 p-2  hover:bg-gray-50 cursor-pointer transition"
                       >
                         {item.thumbnail && (
                           <img
@@ -281,6 +263,24 @@ const ViewPost = () => {
                   })
                 )}
               </div>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: `
+      <script type="text/javascript">
+        atOptions = {
+          'key' : '66e5d9ce942dd691e7337e5af6e1aeaa',
+          'format' : 'iframe',
+          'height' : 60,
+          'width' : 468,
+          'params' : { }
+        };
+      </script>
+      <script type="text/javascript" src="//www.highperformanceformat.com/66e5d9ce942dd691e7337e5af6e1aeaa/invoke.js"></script>
+    `,
+                }}
+              />
+
+
             </aside>
           </div>
         ) : (

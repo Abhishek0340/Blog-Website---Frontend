@@ -20,29 +20,6 @@ import AllUsers from "./Admin/AllUsers";
 const App = () => {
   return (
     <>
-      <Helmet>
-        <title>trendyblogs | Share and Discover Trending Posts</title>
-        <meta
-          name="description"
-          content="Welcome to trendyblogs — a modern blogging platform to share, read, and discover posts across multiple categories. Join our community of writers and readers today!"
-        />
-        <meta
-          name="keywords"
-          content="trendyblogs, blog, blogging platform, trending posts, share articles, read blogs, write blog, community"
-        />
-        <meta
-          property="og:title"
-          content="trendyblogs | Share and Discover Trending Posts"
-        />
-        <meta
-          property="og:description"
-          content="Explore, write, and share blogs on trendyblogs. Join our growing blogging community today."
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://trendyblogs.site/" />
-        <link rel="canonical" href="https://trendyblogs.site/" />
-      </Helmet>
-
       <Router>
         <Routes>
           {/* ✅ General Routes */}

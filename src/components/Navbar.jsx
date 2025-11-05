@@ -13,13 +13,13 @@ const Navbar = () => {
 
   return (
     <header className="w-full bg-white border-b  border-gray-200 top-0 z-50">
-      <div className="w-full mx-auto flex items-center justify-between px-6 py-3 relative">
+      <div className="w-full mx-auto flex items-center justify-between px-3 py-3 relative">
         {/* Logo */}
         <Link to="/" className="flex items-center">
           <img
             srcSet="https://i.ibb.co/jZ4sVWWt/image-logo.png"
             alt="trendyblogs - logo"
-            className="max-h-10 w-auto sm:max-h-14 md:max-h-10 lg:max-h-10 xl:max-h-10 object-contain"
+            className="max-h-10 w-auto  sm:max-h-14 md:max-h-10 lg:max-h-10 xl:max-h-10 object-contain"
           />
         </Link>
 
