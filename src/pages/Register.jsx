@@ -85,7 +85,7 @@ const Register = () => {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://trendyblogs.site/register" />
         <link rel="canonical" href="https://trendyblogs.site/register" />
-        <meta name="robots" content="noindex, nofollow" />
+        <meta name="robots" content="index, follow" />
       </Helmet>
 
       <Navbar />

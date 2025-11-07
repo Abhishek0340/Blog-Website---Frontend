@@ -90,7 +90,7 @@ const ManagePost = () => {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://trendyblogs.site/managepost" />
         <link rel="canonical" href="https://trendyblogs.site/managepost" />
-        <meta name="robots" content="noindex, nofollow" />
+        <meta name="robots" content="index, follow" />
       </Helmet>
 
       <DashboardLayout>

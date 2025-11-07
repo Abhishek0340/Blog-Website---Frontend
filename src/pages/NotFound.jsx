@@ -29,7 +29,7 @@ const NotFound = () => {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://trendyblogs.site/*" />
         <link rel="canonical" href="https://trendyblogs.site/*" />
-        <meta name="robots" content="noindex, nofollow" />
+        <meta name="robots" content="index, follow" />
       </Helmet>
 
       <Navbar />

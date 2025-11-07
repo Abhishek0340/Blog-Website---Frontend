@@ -142,7 +142,7 @@ const ViewPost = () => {
           }
         />
          <link rel="canonical" href="https://trendyblogs.site/" />
-        <meta name="robots" content="noindex, nofollow" />
+        <meta name="robots" content="index, follow" />
         <link rel="alternate" href={`https://trendyblogs.site${window.location.pathname}`} hreflang="en" />
      
       </Helmet>

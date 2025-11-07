@@ -4,50 +4,56 @@
 
   <url>
     <loc>https://trendyblogs.site/</loc>
-    <lastmod>2025-11-02</lastmod>
+    <lastmod>2025-11-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
+  <url>
+    <loc>https://trendyblogs.site/login</loc>
+    <lastmod>2025-11-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 
   <url>
     <loc>https://trendyblogs.site/register</loc>
-    <lastmod>2025-11-02</lastmod>
+    <lastmod>2025-11-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://trendyblogs.site/dashboard</loc>
-    <lastmod>2025-11-02</lastmod>
+    <lastmod>2025-11-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://trendyblogs.site/profile</loc>
-    <lastmod>2025-11-02</lastmod>
+    <lastmod>2025-11-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://trendyblogs.site/managepost</loc>
-    <lastmod>2025-11-02</lastmod>
+    <lastmod>2025-11-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://trendyblogs.site/users</loc>
-    <lastmod>2025-11-02</lastmod>
+    <lastmod>2025-11-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://trendyblogs.site/post</loc>
-    <lastmod>2025-11-02</lastmod>
+    <lastmod>2025-11-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -55,28 +61,28 @@
 
   <url>
     <loc>https://trendyblogs.site/viewpost</loc>
-    <lastmod>2025-11-02</lastmod>
+    <lastmod>2025-11-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://trendyblogs.site/terms-and-conditions</loc>
-    <lastmod>2025-11-02</lastmod>
+    <lastmod>2025-11-07</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://trendyblogs.site/privacy-policy</loc>
-    <lastmod>2025-11-02</lastmod>
+    <lastmod>2025-11-07</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://trendyblogs.site/support</loc>
-    <lastmod>2025-11-02</lastmod>
+    <lastmod>2025-11-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

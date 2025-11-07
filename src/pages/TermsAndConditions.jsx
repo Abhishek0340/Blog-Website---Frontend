@@ -26,7 +26,7 @@ const TermsAndConditions = () => (
         content="https://trendyblogs.site/terms-and-conditions"
       />
       <link rel="canonical" href="https://trendyblogs.site/terms-and-conditions" />
-      <meta name="robots" content="noindex, nofollow" />
+      <meta name="robots" content="index, follow" />
     </Helmet>
 
     <Navbar />
