@@ -1,7 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const Hero = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const adRef = useRef(null); 
+
+  useEffect(() => {
+    if (adRef.current) {
+      adRef.current.innerHTML = ""; 
+
+      const atOptions = {
+        key: "e388e44e3a6868b0a1513fbf73d52e60",
+        format: "iframe",
+        height: 90,
+        width: 728,
+        params: {},
+      };
+
+      const conf = document.createElement("script");
+      const script = document.createElement("script");
+      conf.type = "text/javascript";
+      conf.innerHTML = `atOptions = ${JSON.stringify(atOptions)}`;
+      script.type = "text/javascript";
+      script.src = `https://www.highperformanceformat.com/${atOptions.key}/invoke.js`;
+
+      adRef.current.appendChild(conf);
+      adRef.current.appendChild(script);
+    }
+  }, []);
 
   return (
     <>
@@ -62,15 +87,16 @@ const Hero = () => {
                     )}
 
                     <img
-                      src={'https://i.ibb.co/bMPyvh9f/trendyblogs-hero-image.png'}
+                      src={"https://i.ibb.co/bMPyvh9f/trendyblogs-hero-image.png"}
                       alt="People reading articles and writing notes — TrendyBlogs"
-                      className={`object-cover w-full h-full transition-opacity duration-500 ${imageLoaded ? 'opacity-100' : 'opacity-0'
-                        }`}
+                      className={`object-cover w-full h-full transition-opacity duration-500 ${
+                        imageLoaded ? "opacity-100" : "opacity-0"
+                      }`}
                       loading="eager"
                       onLoad={() => setImageLoaded(true)}
                     />
 
-                    <div className="absolute left-1/4  bottom-4 bg-white/60 backdrop-blur-sm rounded-lg px-3 py-2 text-xs font-medium text-gray-800 shadow">
+                    <div className="absolute left-1/4 bottom-4 bg-white/60 backdrop-blur-sm rounded-lg px-3 py-2 text-xs font-medium text-gray-800 shadow">
                       Nature • Travel • Science • Technology • Finance
                     </div>
                   </div>
@@ -80,30 +106,23 @@ const Hero = () => {
           </div>
 
           {/* Decorative shapes */}
-          <div className="pointer-events-none absolute -bottom-10 -left-20 w-72 h-72 bg-gradient-to-tr from-indigo-200 to-transparent rounded-full opacity-40 blur-3xl hidden lg:block" aria-hidden="true"></div>
-          <div className="pointer-events-none absolute -top-10 -right-16 w-56 h-56 bg-gradient-to-br from-cyan-100 to-transparent rounded-full opacity-40 blur-3xl hidden lg:block" aria-hidden="true"></div>
-
+          <div
+            className="pointer-events-none absolute -bottom-10 -left-20 w-72 h-72 bg-gradient-to-tr from-indigo-200 to-transparent rounded-full opacity-40 blur-3xl hidden lg:block"
+            aria-hidden="true"
+          ></div>
+          <div
+            className="pointer-events-none absolute -top-10 -right-16 w-56 h-56 bg-gradient-to-br from-cyan-100 to-transparent rounded-full opacity-40 blur-3xl hidden lg:block"
+            aria-hidden="true"
+          ></div>
         </div>
       </header>
 
+      {/* Adsterra banner */}
       <div
+        ref={adRef}
         className="my-6 flex justify-center"
-        dangerouslySetInnerHTML={{
-          __html: `
-      <script type="text/javascript">
-        atOptions = {
-          'key' : 'e388e44e3a6868b0a1513fbf73d52e60',
-          'format' : 'iframe',
-          'height' : 90,
-          'width' : 728,
-          'params' : {}
-        };
-      </script>
-      <script type="text/javascript" src="https://www.highperformanceformat.com/e388e44e3a6868b0a1513fbf73d52e60/invoke.js"></script>
-    `,
-        }}
-      />
-
+        style={{ minHeight: "90px" }}
+      ></div>
     </>
   );
 };

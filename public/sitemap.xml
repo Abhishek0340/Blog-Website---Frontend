@@ -58,12 +58,6 @@
     <priority>0.6</priority>
   </url>
 
-  <url>
-    <loc>https://trendyblogs.site/category</loc>
-    <lastmod>2025-11-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
 
   <url>
     <loc>https://trendyblogs.site/viewpost</loc>
@@ -93,11 +87,6 @@
     <priority>0.5</priority>
   </url>
 
-  <url>
-    <loc>https://trendyblogs.site/404</loc>
-    <lastmod>2025-11-02</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
+  
 
 </urlset>

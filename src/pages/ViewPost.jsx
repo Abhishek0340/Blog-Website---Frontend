@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -23,6 +23,7 @@ const ViewPost = () => {
   const [error, setError] = useState(null);
   const [related, setRelated] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
+  const adRef = useRef(null); 
 
   useEffect(() => {
     setIsAdmin(localStorage.getItem("isAdmin") === "true");
@@ -33,7 +34,6 @@ const ViewPost = () => {
         if (!res.ok) throw new Error("Failed to fetch posts");
         const data = await res.json();
 
-        // Find post by slug (no ID needed)
         const found = data.find((p) => {
           const slug = (p.blogName || p.title || "")
             .toLowerCase()
@@ -61,26 +61,30 @@ const ViewPost = () => {
     fetchPost();
   }, [blogName]);
 
-  const handleDelete = async () => {
-    if (!window.confirm("Are you sure you want to delete this post?")) return;
-    try {
-      const res = await fetch(
-        `https://blog-website-backend-wcn7.onrender.com/api/posts/${post._id}`,
-        { method: "DELETE" }
-      );
-      if (res.ok) {
-        alert("Post deleted successfully.");
-        navigate("/dashboard");
-      } else {
-        const data = await res.json();
-        alert(data.error || "Failed to delete post.");
-      }
-    } catch {
-      alert("Error deleting post. Please try again.");
-    }
-  };
+  // ✅  Adsterra ad script 
+  useEffect(() => {
+    if (adRef.current) {
+      adRef.current.innerHTML = ""; 
+      const atOptions = {
+        key: "66e5d9ce942dd691e7337e5af6e1aeaa",
+        format: "iframe",
+        height: 60,
+        width: 468,
+        params: {},
+      };
 
-  const handleEdit = () => navigate("/post", { state: { editPost: post } });
+      const conf = document.createElement("script");
+      const script = document.createElement("script");
+      conf.type = "text/javascript";
+      conf.innerHTML = `atOptions = ${JSON.stringify(atOptions)}`;
+      script.type = "text/javascript";
+      script.src = `//www.highperformanceformat.com/${atOptions.key}/invoke.js`;
+
+      adRef.current.appendChild(conf);
+      adRef.current.appendChild(script);
+    }
+  }, [related]); 
+
 
   return (
     <>
@@ -93,7 +97,7 @@ const ViewPost = () => {
           content={
             post
               ? post.subtitle ||
-              `Read "${post.title}" on trendyblogs. Explore insights, stories, and ideas in the ${post.category} category.`
+                `Read "${post.title}" on trendyblogs. Explore insights, stories, and ideas in the ${post.category} category.`
               : "Read detailed blog posts on trendyblogs."
           }
         />
@@ -120,9 +124,9 @@ const ViewPost = () => {
           content={
             post
               ? `https://trendyblogs.site/blog/${(post.blogName || post.title || "")
-                .toLowerCase()
-                .replace(/[^a-z0-9]+/g, "-")
-                .replace(/^-+|-+$/g, "")}`
+                  .toLowerCase()
+                  .replace(/[^a-z0-9]+/g, "-")
+                  .replace(/^-+|-+$/g, "")}`
               : "https://trendyblogs.site/blog"
           }
         />
@@ -131,13 +135,16 @@ const ViewPost = () => {
           href={
             post
               ? `https://trendyblogs.site/blog/${(post.blogName || post.title || "")
-                .toLowerCase()
-                .replace(/[^a-z0-9]+/g, "-")
-                .replace(/^-+|-+$/g, "")}`
+                  .toLowerCase()
+                  .replace(/[^a-z0-9]+/g, "-")
+                  .replace(/^-+|-+$/g, "")}`
               : "https://trendyblogs.site/blog"
           }
         />
-        <meta name="robots" content="index, follow" />
+         <link rel="canonical" href="https://trendyblogs.site/" />
+        <meta name="robots" content="noindex, nofollow" />
+        <link rel="alternate" href={`https://trendyblogs.site${window.location.pathname}`} hreflang="en" />
+     
       </Helmet>
 
       <Navbar />
@@ -150,12 +157,10 @@ const ViewPost = () => {
           <div className="w-full flex flex-col lg:flex-row gap-0">
             {/* ===== Main Article ===== */}
             <article className="flex-1 bg-white p-4 sm:p-10">
-              {/* Title */}
               <h1 className="text-2xl sm:text-4xl font-semibold text-gray-900 mb-4 leading-snug">
                 {post.title}
               </h1>
 
-              {/* Thumbnail */}
               {post.thumbnail && (
                 <div className="w-full mb-4 mt-4">
                   <div className="relative w-full overflow-hidden">
@@ -168,25 +173,17 @@ const ViewPost = () => {
                 </div>
               )}
 
-              {/* Subtitle */}
               {post.subtitle && (
                 <p className="text-lg text-gray-700 mb-9 italic border-l-4 border-blue-500 pl-4">
                   {post.subtitle}
                 </p>
               )}
 
-              {/* Author */}
-              <div className="text-right hidden text-sm text-gray-500">
-                {post.authorGmail || "Unknown Author"}
-              </div>
-
-              {/* Content */}
               <div
                 className="prose prose-lg font-medium m-2 max-w-none text-gray-800 leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: imageifyHtml(post.content) }}
               />
 
-              {/* Extra Images */}
               {post.images?.length > 0 && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
                   {post.images.map((img, i) => (
@@ -200,7 +197,6 @@ const ViewPost = () => {
                 </div>
               )}
 
-              {/* Keywords */}
               {post.keywords && (
                 <div className="mt-10">
                   <h3 className="text-sm font-semibold text-gray-600 mb-3 uppercase">
@@ -241,7 +237,7 @@ const ViewPost = () => {
                       <div
                         key={item._id}
                         onClick={() => navigate(`/blog/${slug}`)}
-                        className="group flex items-center gap-4 p-2  hover:bg-gray-50 cursor-pointer transition"
+                        className="group flex items-center gap-4 p-2 hover:bg-gray-50 cursor-pointer transition"
                       >
                         {item.thumbnail && (
                           <img
@@ -263,24 +259,13 @@ const ViewPost = () => {
                   })
                 )}
               </div>
+
+              {/* ✅ Fixed Adsterra Ad Banner */}
               <div
-                dangerouslySetInnerHTML={{
-                  __html: `
-      <script type="text/javascript">
-        atOptions = {
-          'key' : '66e5d9ce942dd691e7337e5af6e1aeaa',
-          'format' : 'iframe',
-          'height' : 60,
-          'width' : 468,
-          'params' : { }
-        };
-      </script>
-      <script type="text/javascript" src="//www.highperformanceformat.com/66e5d9ce942dd691e7337e5af6e1aeaa/invoke.js"></script>
-    `,
-                }}
-              />
-
-
+                ref={adRef}
+                className="flex justify-center items-center my-5 border border-gray-200 rounded-lg overflow-hidden"
+                style={{ minHeight: "60px" }}
+              ></div>
             </aside>
           </div>
         ) : (
