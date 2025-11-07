@@ -1,9 +1,6 @@
 # robots.txt for https://trendyblogs.site/
 User-agent: *
 
-# Allow all content to be indexed
-Allow: /
-
 
 # Sitemap location
 Sitemap: https://trendyblogs.site/sitemap.xml
