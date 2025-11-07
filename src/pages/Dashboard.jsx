@@ -75,7 +75,7 @@ const Dashboard = () => {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://trendyblogs.site/dashboard" />
         <link rel="canonical" href="https://trendyblogs.site/dashboard" />
-        <meta name="robots" content="noindex, nofollow" />
+        <meta name="robots" content="index, follow" />
       </Helmet>
 
 
