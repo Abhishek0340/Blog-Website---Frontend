@@ -6,18 +6,16 @@ import { FaRegUser } from "react-icons/fa6";
 import { BiRepost } from "react-icons/bi";
 import { IoCreateOutline } from "react-icons/io5";
 import { MdOutlineDashboard } from "react-icons/md";
-import { FaUsersCog } from "react-icons/fa"; 
+import { FaUsersCog } from "react-icons/fa";
 import Spinner from "../components/Spinner";
 
 const DashboardLayout = ({ children }) => {
-  const [drawerOpen, setDrawerOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
 
-  const isAdmin = localStorage.getItem("isAdmin") === "true"; 
+  const isAdmin = localStorage.getItem("isAdmin") === "true";
 
-  // Sidebar links
   const userSidebarLinks = [
     { name: "Dashboard", to: "/dashboard", icon: <MdOutlineDashboard /> },
     { name: "Create Post", to: "/post", icon: <IoCreateOutline /> },
@@ -27,9 +25,9 @@ const DashboardLayout = ({ children }) => {
 
   const adminSidebarLinks = [
     { name: "Dashboard", to: "/dashboard", icon: <MdOutlineDashboard /> },
-    { name: "All Users", to: "/users", icon: <FaUsersCog /> },
-    { name: "Manage Posts", to: "/managepost", icon: <BiRepost /> },
     { name: "Create Post", to: "/post", icon: <IoCreateOutline /> },
+    { name: "Manage Posts", to: "/managepost", icon: <BiRepost /> },
+    { name: "All Users", to: "/users", icon: <FaUsersCog /> },
     { name: "Profile", to: "/profile", icon: <FaRegUser /> },
   ];
 
@@ -41,18 +39,11 @@ const DashboardLayout = ({ children }) => {
       fetch(`https://blog-website-backend-wcn7.onrender.com/api/userinfo?email=${storedEmail}`)
         .then((res) => res.json())
         .then((data) => {
-          if (!data.error) {
-            setUser(data);
-          }
+          if (!data.error) setUser(data);
           setLoading(false);
         })
-        .catch((err) => {
-          console.error("Error fetching user info:", err);
-          setLoading(false);
-        });
-    } else {
-      setLoading(false);
-    }
+        .catch(() => setLoading(false));
+    } else setLoading(false);
   }, []);
 
   if (loading) {
@@ -67,75 +58,43 @@ const DashboardLayout = ({ children }) => {
     <>
       <Navbar />
 
-      <div className="flex min-h-screen relative">
-        {/* Sidebar */}
-        <aside
-          className={`fixed md:static top-0 left-0 h-full md:h-auto z-20 bg-white border-r border-gray-200 
-          transform transition-transform duration-300 
-          w-3xs md:w-56
-          ${drawerOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
-        >
-          {/* Profile Section */}
-          <div className="flex flex-col items-center mb-8 mt-8">
-            <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-3xl font-bold text-gray-500 mb-2">
-              {user ? user.username.charAt(0).toUpperCase() : ""}
-            </div>
-            <span className="font-semibold text-gray-700">
-              {user ? user.username : ""}
-            </span>
-            <span className="text-xs text-gray-400">
-              {isAdmin ? "Admin" : "User"}
-            </span>
+      <div className="flex min-h-screen bg-gray-50">
+        {/* Fixed Sidebar (icon-only) */}
+        <aside className="sticky top-0  left-0 min-h-screen w-16 bg-white  flex flex-col items-center py-5 shadow-sm">
+          {/* User Initial */}
+          <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-lg font-bold text-gray-600 mb-8">
+            <Link to='/profile'>{user ? user.username.charAt(0).toUpperCase() : ""}</Link>  
           </div>
 
-          {/* Sidebar Links */}
-          <nav className="flex flex-col gap-2 mt-2">
+          {/* Sidebar Icons */}
+          <nav className="flex flex-col items-center gap-6">
             {sidebarLinks.map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
-                className={`flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition text-gray-700 hover:bg-gray-100 hover:text-blue-700 ${
+                className={`relative flex items-center justify-center text-2xl p-2 rounded-xl transition-all group ${
                   location.pathname === link.to
-                    ? "bg-gray-100 text-blue-700 font-bold"
-                    : ""
+                    ? "bg-blue-100 text-blue-700"
+                    : "text-gray-600 hover:text-blue-700 hover:bg-gray-100"
                 }`}
-                onClick={() => setDrawerOpen(false)}
               >
-                <span className="text-xl">{link.icon}</span>
-                {link.name}
+                {link.icon}
+                {/* Tooltip */}
+                <span className="absolute left-16 px-2 py-1 bg-gray-800 text-white text-xs rounded-md opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">
+                  {link.name}
+                </span>
               </Link>
             ))}
           </nav>
         </aside>
 
-        {/* Overlay for mobile */}
-        {drawerOpen && (
-          <div
-            className="fixed inset-0 bg-black bg-opacity-40 z-10 md:hidden"
-            onClick={() => setDrawerOpen(false)}
-          ></div>
-        )}
-
-        {/* Toggle button */}
-        <button
-          className="md:hidden fixed top-20 left-4 z-30 bg-white border border-gray-300 rounded-full p-2 shadow text-2xl text-gray-700"
-          onClick={() => setDrawerOpen(!drawerOpen)}
-          aria-label="Toggle drawer"
-        >
-          {drawerOpen ? "✖" : "☰"}
-        </button>
-
         {/* Main Content */}
-        <main
-          className={`flex-1 px-4 py-4 overflow-y-auto ${
-            isAdmin ? "bg-white" : "bg-white"
-          }`}
-          style={{ minHeight: "calc(100vh - 4rem)" }}
-        >
+        <main className="flex-1   bg-white min-h-screen overflow-y-auto">
           {children}
         </main>
       </div>
 
+      {/* Normal (scrollable) Footer */}
       <Footer />
     </>
   );

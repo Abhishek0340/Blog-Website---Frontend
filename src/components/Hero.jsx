@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from 'react-router-dom';
+import { MdSearch } from "react-icons/md";
+
 
 const Hero = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
-  const adRef = useRef(null); 
+  const adRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (adRef.current) {
-      adRef.current.innerHTML = ""; 
+      adRef.current.innerHTML = "";
 
       const atOptions = {
         key: "e388e44e3a6868b0a1513fbf73d52e60",
@@ -58,23 +62,25 @@ const Hero = () => {
                   />
                   <button
                     type="submit"
-                    className="px-4 py-2 rounded-full bg-indigo-50 text-indigo-700 font-medium hover:bg-indigo-100 focus:outline-none"
+                    className="px-2 py-2 rounded-full  text-indigo-700 font-medium hover:bg-indigo-100 focus:outline-none"
                   >
-                    Search
+                    <MdSearch />
                   </button>
                 </form>
 
                 {/* Tags */}
-                <div className="mt-6 flex flex-wrap justify-center md:justify-start gap-2 text-sm">
-                  {['Nature ', 'Travel', 'Science', 'Technology', 'Finance'].map((t) => (
-                    <span
-                      key={t}
-                      className="px-3 py-1 rounded-full bg-white/70 border border-gray-100 text-gray-700 shadow-sm"
+                <div className="mt-6 flex flex-wrap justify-center md:justify-start gap-3 text-sm">
+                  {['Nature', 'Travel', 'Science', 'Technology', 'Finance'].map((tag) => (
+                    <button
+                      key={tag}
+                      onClick={() => navigate(`/category/${tag.toLowerCase()}`)}
+                      className="px-4 py-2 rounded-full cursor-pointer border-gray-200 text-gray-700 font-medium hover:from-blue-200 hover:to-white hover:text-blue-700 shadow-md hover:shadow-lg transition-all duration-300"
                     >
-                      {t}
-                    </span>
+                      #{tag}
+                    </button>
                   ))}
                 </div>
+
               </div>
 
               {/* Right column: image */}
@@ -89,16 +95,11 @@ const Hero = () => {
                     <img
                       src={"https://i.ibb.co/bMPyvh9f/trendyblogs-hero-image.png"}
                       alt="People reading articles and writing notes — TrendyBlogs"
-                      className={`object-cover w-full h-full transition-opacity duration-500 ${
-                        imageLoaded ? "opacity-100" : "opacity-0"
-                      }`}
+                      className={`object-cover w-full h-full transition-opacity duration-500 ${imageLoaded ? "opacity-100" : "opacity-0"
+                        }`}
                       loading="eager"
                       onLoad={() => setImageLoaded(true)}
                     />
-
-                    <div className="absolute left-1/4 bottom-4 bg-white/60 backdrop-blur-sm rounded-lg px-3 py-2 text-xs font-medium text-gray-800 shadow">
-                      Nature • Travel • Science • Technology • Finance
-                    </div>
                   </div>
                 </div>
               </div>
@@ -120,9 +121,15 @@ const Hero = () => {
       {/* Adsterra banner */}
       <div
         ref={adRef}
-        className="my-6 flex justify-center"
-        style={{ minHeight: "90px" }}
-      ></div>
+        className="my-6 flex justify-center items-center px-2"
+      >
+        <div
+          className="w-full max-w-[970px] min-h-[60px] md:min-h-[90px] bg-white/70 backdrop-blur-sm rounded-xl border border-gray-200 shadow-sm flex justify-center items-center"
+        >
+        
+        </div>
+      </div>
+
     </>
   );
 };

@@ -118,46 +118,6 @@ const Post = () => {
     }));
   };
 
-  // 🧠 AI Auto-generate blog content
-  const handleAIGenerate = async () => {
-    if (!form.blogName) {
-      alert("Please enter a topic or blog name first!");
-      return;
-    }
-    setLoadingAI(true);
-    try {
-      const res = await fetch("https://blog-website-backend-wcn7.onrender.com/api/ai/generate-blog", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ topic: form.blogName }),
-      });
-      const data = await res.json();
-
-      if (res.ok) {
-        const titleMatch = data.text.match(/Title:\s*(.*)/i);
-        const subtitleMatch = data.text.match(/Subtitle:\s*(.*)/i);
-        const descMatch = data.text.match(/Description:\s*([\s\S]*)/i);
-        const keywordsMatch = data.text.match(/Keywords:\s*(.*)/i);
-
-        setForm(prev => ({
-          ...prev,
-          blogName: titleMatch ? titleMatch[1].trim() : prev.blogName,
-          subtitle: subtitleMatch ? subtitleMatch[1].trim() : prev.subtitle,
-          description: descMatch ? descMatch[1].trim() : prev.description,
-          keywords: keywordsMatch ? keywordsMatch[1].trim() : prev.keywords,
-          thumbnail: data.thumbnailUrl || prev.thumbnail,
-        }));
-        alert("AI content generated successfully!");
-      } else {
-        alert(data.error || "AI generation failed");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Error generating blog content");
-    } finally {
-      setLoadingAI(false);
-    }
-  };
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -249,27 +209,17 @@ const Post = () => {
 
               {/* Blog Name */}
               <div>
-                <label className="block font-semibold mb-2 text-gray-700">Blog Name / Topic</label>
+                <label className="block font-semibold mb-2 text-gray-700">Blog Name </label>
                 <input
                   type="text"
                   name="blogName"
                   value={form.blogName}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
-                  placeholder="Enter blog topic..."
+                  placeholder="Enter blog name..."
                   required
                 />
               </div>
-
-              <button
-                type="button"
-                onClick={handleAIGenerate}
-                disabled={loadingAI}
-                className={`hidden px-6 py-2 font-semibold rounded-xl text-white transition ${loadingAI ? 'bg-gray-400 cursor-wait' : 'bg-green-700 hover:bg-green-800'
-                  }`}
-              >
-                {loadingAI ? 'Generating...' : '✨ Auto-Generate Blog'}
-              </button>
 
               {/* Subtitle */}
               <div>
@@ -279,6 +229,7 @@ const Post = () => {
                   name="subtitle"
                   value={form.subtitle}
                   onChange={handleChange}
+                  placeholder='Enter blog subtitle...'
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
                 />
               </div>
@@ -303,20 +254,21 @@ const Post = () => {
                   name="keywords"
                   value={form.keywords}
                   onChange={handleChange}
+                  placeholder='Enter keywords (comma separated)'
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
                 />
               </div>
 
               {/* Author, Category */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
+              <div className="block font-semibold mb-2 text-gray-700">
+                <div className='hidden'>
                   <label className="block font-semibold mb-2 text-gray-700">Author Name</label>
                   <input
                     type="text"
                     name="authorName"
                     value={form.authorName}
                     readOnly
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg"
                   />
                 </div>
                 <div>

@@ -89,7 +89,7 @@ const Dashboard = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <div className="bg-white shadow rounded-lg p-5 flex items-center gap-4">
               <FiFileText className="text-blue-600 text-3xl" />
-              <div>
+              <div className="">
                 <p className="text-gray-500 text-sm">Total Posts</p>
                 <h2 className="text-xl font-bold text-gray-800">
                   {loading ? "..." : stats.posts}
@@ -135,13 +135,13 @@ const Dashboard = () => {
                 👑 Admin Controls
               </h3>
               <div className="flex flex-wrap gap-3">
-                <button className=" text-black bg-purple-300 px-4 py-2 rounded  transition">
+                <button className=" text-black  px-4 py-2 rounded  transition">
                   <Link to="/users">👥 Manage Users</Link>
                 </button>
-                <button className="bg-blue-300  text-black px-4 py-2 rounded  transition">
+                <button className=" text-black px-4 py-2 rounded  transition">
                   <Link to="/post">➕ Create Post</Link>
                 </button>
-                <button className="bg-green-300 text-black px-4 py-2 rounded  transition">
+                <button className=" text-black px-4 py-2 rounded  transition">
                   <Link to="/managepost">🗂 Manage All Posts</Link>
                 </button>
               </div>

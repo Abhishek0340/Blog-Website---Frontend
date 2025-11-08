@@ -4,6 +4,13 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Spinner from "../components/Spinner";
 import { Helmet } from "react-helmet";
+import {
+  FaWhatsapp,
+  FaTwitter,
+  FaFacebookF,
+  FaLinkedinIn,
+  FaTelegramPlane,
+} from "react-icons/fa";
 
 function imageifyHtml(html) {
   if (!html) return "";
@@ -23,7 +30,7 @@ const ViewPost = () => {
   const [error, setError] = useState(null);
   const [related, setRelated] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
-  const adRef = useRef(null); 
+  const adRef = useRef(null);
 
   useEffect(() => {
     setIsAdmin(localStorage.getItem("isAdmin") === "true");
@@ -61,10 +68,10 @@ const ViewPost = () => {
     fetchPost();
   }, [blogName]);
 
-  // ✅  Adsterra ad script 
+  // ✅ Adsterra Ad Script
   useEffect(() => {
     if (adRef.current) {
-      adRef.current.innerHTML = ""; 
+      adRef.current.innerHTML = "";
       const atOptions = {
         key: "66e5d9ce942dd691e7337e5af6e1aeaa",
         format: "iframe",
@@ -83,8 +90,7 @@ const ViewPost = () => {
       adRef.current.appendChild(conf);
       adRef.current.appendChild(script);
     }
-  }, [related]); 
-
+  }, [related]);
 
   return (
     <>
@@ -109,7 +115,10 @@ const ViewPost = () => {
               : "blog, post, article, trendyblogs"
           }
         />
-        <meta property="og:title" content={post ? `${post.title} | trendyblogs` : "View Post | trendyblogs"} />
+        <meta
+          property="og:title"
+          content={post ? `${post.title} | trendyblogs` : "View Post | trendyblogs"}
+        />
         <meta
           property="og:description"
           content={
@@ -141,10 +150,13 @@ const ViewPost = () => {
               : "https://trendyblogs.site/blog"
           }
         />
-         <link rel="canonical" href="https://trendyblogs.site/" />
+        <link rel="canonical" href="https://trendyblogs.site/" />
         <meta name="robots" content="index, follow" />
-        <link rel="alternate" href={`https://trendyblogs.site${window.location.pathname}`} hreflang="en" />
-     
+        <link
+          rel="alternate"
+          href={`https://trendyblogs.site${window.location.pathname}`}
+          hreflang="en"
+        />
       </Helmet>
 
       <Navbar />
@@ -184,18 +196,66 @@ const ViewPost = () => {
                 dangerouslySetInnerHTML={{ __html: imageifyHtml(post.content) }}
               />
 
-              {post.images?.length > 0 && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
-                  {post.images.map((img, i) => (
-                    <img
-                      key={i}
-                      src={img}
-                      alt={`extra-${i}`}
-                      className="rounded-lg shadow-sm object-cover w-full"
-                    />
-                  ))}
+              {/* ===== Social Share Buttons ===== */}
+              <div className="mt-10">
+                <p className="font-semibold text-gray-700 mb-3">Share this post:</p>
+                <div className="flex flex-wrap gap-3">
+                  <a
+                    href={`https://api.whatsapp.com/send?text=${encodeURIComponent(
+                      post.title + " " + window.location.href
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-4 py-2 rounded-full bg-green-500 text-white text-sm font-medium hover:bg-green-600 transition-all"
+                  >
+                    <FaWhatsapp size={18} /> WhatsApp
+                  </a>
+
+                  <a
+                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                      post.title
+                    )}&url=${encodeURIComponent(window.location.href)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-4 py-2 rounded-full bg-sky-500 text-white text-sm font-medium hover:bg-sky-600 transition-all"
+                  >
+                    <FaTwitter size={18} /> Twitter
+                  </a>
+
+                  <a
+                    href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                      window.location.href
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-4 py-2 rounded-full bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-all"
+                  >
+                    <FaFacebookF size={18} /> Facebook
+                  </a>
+
+                  <a
+                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+                      window.location.href
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-4 py-2 rounded-full bg-blue-700 text-white text-sm font-medium hover:bg-blue-800 transition-all"
+                  >
+                    <FaLinkedinIn size={18} /> LinkedIn
+                  </a>
+
+                  <a
+                    href={`https://t.me/share/url?url=${encodeURIComponent(
+                      window.location.href
+                    )}&text=${encodeURIComponent(post.title)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-4 py-2 rounded-full bg-blue-400 text-white text-sm font-medium hover:bg-blue-500 transition-all"
+                  >
+                    <FaTelegramPlane size={18} /> Telegram
+                  </a>
                 </div>
-              )}
+              </div>
 
               {post.keywords && (
                 <div className="mt-10">
