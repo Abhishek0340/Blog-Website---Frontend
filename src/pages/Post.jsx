@@ -25,48 +25,57 @@ const Post = () => {
   const [imageFiles, setImageFiles] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editPostId, setEditPostId] = useState(null);
-  const [loadingAI, setLoadingAI] = useState(false);
   const editorRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
 
+  // 🔥 Fetch user info same as Profile.jsx
   useEffect(() => {
-    const email = localStorage.getItem('authEmail');
-    const today = new Date().toISOString().split('T')[0];
+    const storedEmail = localStorage.getItem("authEmail");
+    const today = new Date().toISOString().split("T")[0];
 
-    if (email) {
-      fetch(`https://blog-website-backend-wcn7.onrender.com/api/userinfo?email=${email}`)
-        .then(res => res.json())
-        .then(data => {
-          if (!data.error && !(location.state && location.state.editPost)) {
+    const fetchUser = async () => {
+      if (storedEmail) {
+        try {
+          const res = await fetch(`https://blog-website-backend-wcn7.onrender.com/api/userinfo?email=${storedEmail}`);
+          const data = await res.json();
+
+          if (!data.error) {
             setForm(prev => ({
               ...prev,
-              authorName: data.username || '',
-              authorGmail: data.email || email,
+              authorName: data.username,
+              authorGmail: data.email,
               date: today
             }));
           }
-        })
-        .catch(err => console.error("Error fetching user info:", err));
-    }
+        } catch (error) {
+          console.error("Error fetching user info:", error);
+        }
+      }
+    };
 
+    // EDIT MODE
     if (location.state && location.state.editPost) {
       const post = location.state.editPost;
       setIsEditing(true);
       setEditPostId(post._id);
 
       setForm({
-        blogName: post.title || '',
-        subtitle: post.subtitle || '',
-        description: post.content || '',
-        keywords: post.keywords || '',
-        authorName: post.author || '',
-        authorGmail: post.authorGmail || email || '',
-        category: post.category || '',
-        date: post.createdAt ? new Date(post.createdAt).toISOString().split('T')[0] : today,
-        thumbnail: post.thumbnail || '',
-        images: post.images || [],
+        blogName: post.title || "",
+        subtitle: post.subtitle || "",
+        description: post.content || "",
+        keywords: post.keywords || "",
+        authorName: post.author || "",
+        authorGmail: post.authorGmail || "",
+        category: post.category || "",
+        date: post.createdAt
+          ? new Date(post.createdAt).toISOString().split("T")[0]
+          : today,
+        thumbnail: post.thumbnail || "",
+        images: post.images || []
       });
+    } else {
+      fetchUser(); 
     }
   }, [location.state]);
 
@@ -93,31 +102,6 @@ const Post = () => {
     setThumbFile(file);
     setForm(prev => ({ ...prev, thumbnail: file ? URL.createObjectURL(file) : '' }));
   };
-
-  const handleImagesChange = e => {
-    const files = Array.from(e.target.files);
-    setImageFiles(files);
-    setForm(prev => ({
-      ...prev,
-      images: [
-        ...files.map(f => URL.createObjectURL(f)),
-        ...((prev.imageUrls || '').split(/\n|,/).map(u => u.trim()).filter(Boolean))
-      ]
-    }));
-  };
-
-  const handleImageUrlsChange = e => {
-    const value = e.target.value;
-    setForm(prev => ({
-      ...prev,
-      imageUrls: value,
-      images: [
-        ...imageFiles.map(f => URL.createObjectURL(f)),
-        ...value.split(/\n|,/).map(u => u.trim()).filter(Boolean)
-      ]
-    }));
-  };
-
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -172,31 +156,6 @@ const Post = () => {
     <>
       <Helmet>
         <title>{isEditing ? "Edit Blog Post" : "Create a New Blog Post"} | trendyblogs</title>
-        <meta
-          name="description"
-          content={
-            isEditing
-              ? "Edit your existing blog post on trendyblogs. Update content, categories, thumbnails, and keywords easily."
-              : "Create and publish your own blog on trendyblogs. Add title, subtitle, content, category, images, and more to share your story."
-          }
-        />
-        <meta
-          name="keywords"
-          content="create blog, edit blog, trendyblogs, write blog, post editor, blogging platform, publish article"
-        />
-        <meta property="og:title" content={isEditing ? "Edit Blog Post | trendyblogs" : "Create a New Blog Post | trendyblogs"} />
-        <meta
-          property="og:description"
-          content={
-            isEditing
-              ? "Update your blog post content, images, and metadata on trendyblogs."
-              : "Start blogging on trendyblogs — create and share your own posts across multiple categories."
-          }
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://trendyblogs.site/post" />
-        <link rel="canonical" href="https://trendyblogs.site/post" />
-        <meta name="robots" content="index, follow" />
       </Helmet>
 
       <DashboardLayout>
@@ -204,24 +163,22 @@ const Post = () => {
           <h1 className="text-2xl font-bold text-gray-800 mb-6">
             {isEditing ? 'Edit Blog Post' : 'Create a New Blog Post'}
           </h1>
+
           <div className="w-full max-w-7xl mx-auto rounded border p-4 border-gray-200">
             <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
 
-              {/* Blog Name */}
               <div>
-                <label className="block font-semibold mb-2 text-gray-700">Blog Name </label>
+                <label className="block font-semibold mb-2 text-gray-700">Blog Name</label>
                 <input
                   type="text"
                   name="blogName"
                   value={form.blogName}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
-                  placeholder="Enter blog name..."
                   required
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg"
                 />
               </div>
 
-              {/* Subtitle */}
               <div>
                 <label className="block font-semibold mb-2 text-gray-700">Subtitle</label>
                 <input
@@ -229,24 +186,20 @@ const Post = () => {
                   name="subtitle"
                   value={form.subtitle}
                   onChange={handleChange}
-                  placeholder='Enter blog subtitle...'
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg"
                 />
               </div>
 
-              {/* Editor */}
               <div>
                 <label className="block font-semibold mb-2 text-gray-700">Description</label>
                 <JoditEditor
                   ref={editorRef}
                   value={form.description}
-                  tabIndex={1}
                   onBlur={handleEditorChange}
                   config={{ height: 300 }}
                 />
               </div>
 
-              {/* Keywords */}
               <div>
                 <label className="block font-semibold mb-2 text-gray-700">Keywords</label>
                 <input
@@ -254,71 +207,66 @@ const Post = () => {
                   name="keywords"
                   value={form.keywords}
                   onChange={handleChange}
-                  placeholder='Enter keywords (comma separated)'
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg"
                 />
               </div>
 
-              {/* Author, Category */}
-              <div className="block font-semibold mb-2 text-gray-700">
-                <div className='hidden'>
-                  <label className="block font-semibold mb-2 text-gray-700">Author Name</label>
-                  <input
-                    type="text"
-                    name="authorName"
-                    value={form.authorName}
-                    readOnly
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-                  />
-                </div>
-                <div>
-                  <label className="block font-semibold mb-2 text-gray-700">Category</label>
-                  <select
-                    name="category"
-                    value={form.category}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-                    required
-                  >
-                    <option value="">Select category</option>
-                    {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
-                  </select>
-                </div>
+              <div>
+                <label className="block font-semibold mb-2 text-gray-700">Author Name</label>
+                <input
+                  type="text"
+                  name="authorName"
+                  value={form.authorName}
+                  readOnly
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                />
               </div>
 
-              {/* Thumbnail */}
+              <div>
+                <label className="block font-semibold mb-2 text-gray-700">Category</label>
+                <select
+                  name="category"
+                  value={form.category}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                >
+                  <option value="">Select category</option>
+                  {categories.map(cat => (
+                    <option key={cat} value={cat}>{cat}</option>
+                  ))}
+                </select>
+              </div>
+
               <div>
                 <label className="block font-semibold mb-2 text-gray-700">Thumbnail</label>
-                <input type="file" accept="image/*" onChange={handleThumbChange} className="mb-2" />
                 <input
-                  type="url"
-                  placeholder="Or paste image URL"
-                  value={form.thumbnail}
-                  name="thumbnail"
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleThumbChange}
                 />
                 {form.thumbnail && (
                   <img src={form.thumbnail} alt="Thumbnail" className="mt-2 rounded-lg w-32 h-20 object-cover" />
                 )}
               </div>
 
-              {/* Buttons */}
               <div className="flex gap-4">
                 <button
                   type="submit"
-                  className="px-6 py-2 bg-blue-700 text-white rounded-xl hover:bg-blue-800 font-bold"
+                  className="px-6 py-2 bg-blue-700 text-white rounded-xl font-bold"
                 >
                   {isEditing ? 'Update Blog' : 'Submit Blog'}
                 </button>
+
                 <button
                   type="button"
                   onClick={handleCancel}
-                  className="px-6 py-2 bg-gray-500 text-white rounded-xl hover:bg-gray-600 font-bold"
+                  className="px-6 py-2 bg-gray-500 text-white rounded-xl font-bold"
                 >
                   Cancel
                 </button>
               </div>
+
             </form>
           </div>
         </div>

@@ -103,7 +103,7 @@ const PostCard = () => {
                     )}
 
                     {/* Author */}
-                    <div className="text-xs hidden text-gray-500 px-5 pt-3 -mt-1">
+                    <div className="text-xs  text-gray-500 px-5 pt-3 -mt-1">
                       {post.authorGmail || "Unknown Author"}
                     </div>
 

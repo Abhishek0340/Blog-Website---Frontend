@@ -3,8 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Helmet } from "react-helmet";
+import Spinner from "../components/Spinner"
+
 
 const Register = () => {
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -193,11 +196,12 @@ const Register = () => {
 
             {/* Submit */}
             <button
-              type="submit"
-              className="w-full bg-gray-900 text-white font-medium text-base py-2 rounded-md hover:bg-gray-700 transition-colors"
-            >
-              Sign Up
-            </button>
+  type="submit"
+  disabled={loading}
+  className="w-full bg-gray-900 text-white font-medium text-base py-2 rounded-md flex items-center justify-center hover:bg-gray-700 transition-colors"
+>
+  {loading ? <Spinner /> : "Sign Up"}
+</button>
           </form>
 
           {/* Login Link */}

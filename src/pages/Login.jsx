@@ -3,8 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Helmet } from "react-helmet";
+import Spinner from "../components/Spinner";
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -94,7 +96,7 @@ const Login = () => {
         <meta property="og:url" content="https://trendyblogs.site/login" />
         <link rel="canonical" href="https://trendyblogs.site/login" />
         <meta name="robots" content="index, follow" />
-      
+
 
         <link rel="alternate" href={`https://trendyblogs.site${window.location.pathname}`} hreflang="en" />
       </Helmet>
@@ -159,9 +161,10 @@ const Login = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-gray-900 text-white font-medium text-base py-2 rounded-md hover:bg-gray-700 transition-colors"
+              disabled={loading}
+              className="w-full bg-gray-900 text-white font-medium text-base py-2 rounded-md flex items-center justify-center hover:bg-gray-700 transition-colors"
             >
-              Login
+              {loading ? <Spinner /> : "Login"}
             </button>
           </form>
 

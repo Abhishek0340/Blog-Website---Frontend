@@ -12,7 +12,6 @@ const Dashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    // ✅ Detect if admin from localStorage
     const adminStatus = localStorage.getItem("isAdmin") === "true";
     setIsAdmin(adminStatus);
 
@@ -23,15 +22,19 @@ const Dashboard = () => {
         const postsRes = await fetch("https://blog-website-backend-wcn7.onrender.com/api/posts");
         const postsData = await postsRes.json();
 
+        // Fetch all registered users (added)
+        const usersRes = await fetch("https://blog-website-backend-wcn7.onrender.com/api/register?isAdmin=true");
+        const usersData = await usersRes.json();
+
         const categoriesSet = new Set(postsData.map((p) => p.category));
 
-        // Dummy placeholders for users/comments for now
         setStats({
           posts: postsData.length,
           categories: categoriesSet.size,
-          users: 0,
+          users: usersData.length, 
           comments: 0,
         });
+
         setRecentPosts(postsData.slice(-3).reverse());
       } catch (err) {
         console.error("Error fetching dashboard data:", err);
@@ -77,7 +80,6 @@ const Dashboard = () => {
         <link rel="canonical" href="https://trendyblogs.site/dashboard" />
         <meta name="robots" content="index, follow" />
       </Helmet>
-
 
       <DashboardLayout>
         <div className="p-6">
@@ -130,18 +132,18 @@ const Dashboard = () => {
 
           {/* ======= Admin-Only Section ======= */}
           {isAdmin && (
-            <div className=" rounded-lg p-6 mb-8 border border-gray-200">
+            <div className="rounded-lg p-6 mb-8 border border-gray-200">
               <h3 className="text-lg font-semibold text-gray-800 mb-4">
                 👑 Admin Controls
               </h3>
               <div className="flex flex-wrap gap-3">
-                <button className=" text-black  px-4 py-2 rounded  transition">
+                <button className="text-black px-4 py-2 rounded transition">
                   <Link to="/users">👥 Manage Users</Link>
                 </button>
-                <button className=" text-black px-4 py-2 rounded  transition">
+                <button className="text-black px-4 py-2 rounded transition">
                   <Link to="/post">➕ Create Post</Link>
                 </button>
-                <button className=" text-black px-4 py-2 rounded  transition">
+                <button className="text-black px-4 py-2 rounded transition">
                   <Link to="/managepost">🗂 Manage All Posts</Link>
                 </button>
               </div>
@@ -160,10 +162,7 @@ const Dashboard = () => {
             ) : recentPosts.length > 0 ? (
               <ul className="divide-y divide-gray-200">
                 {recentPosts.map((post) => (
-                  <li
-                    key={post._id}
-                    className="py-3 flex justify-between items-center"
-                  >
+                  <li key={post._id} className="py-3 flex justify-between items-center">
                     <span className="text-gray-700">{post.title}</span>
                     <span className="text-sm text-gray-500">
                       {post.createdAt
