@@ -130,7 +130,7 @@ const PostCard = () => {
                           e.stopPropagation();
                           handleNavigate();
                         }}
-                        className="text-blue-600 w-full bg-blue-50 text-sm font-medium py-1 rounded-lg hover:bg-blue-100 transition"
+                        className="text-blue-600  w-full bg-blue-50 text-sm font-medium py-1 rounded-lg hover:bg-blue-100 transition"
                       >
                         Read More 
                       </button>

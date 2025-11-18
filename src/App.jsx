@@ -17,12 +17,16 @@ import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
 import AllUsers from "./Admin/AllUsers";
 
+
+import Demo from "./components/Demo";
+
 const App = () => {
   return (
     <>
       <Router>
         <Routes>
           {/* ✅ General Routes */}
+          <Route path="/demo" element={<Demo />} />
           <Route path="/" element={<Home />} />
           <Route path="/category/:name" element={<Category />} />
           <Route path="/post/:id" element={<Post />} />

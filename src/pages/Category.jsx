@@ -5,7 +5,6 @@ import Footer from '../components/Footer';
 import { Helmet } from "react-helmet";
 import Spinner from '../components/Spinner';
 
-
 const Category = () => {
   const { name } = useParams();
   const navigate = useNavigate();
@@ -56,6 +55,14 @@ const Category = () => {
     filteredPosts = [...filteredPosts].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   }
 
+  // Function to generate slug (same as in ViewPost)
+  const generateSlug = (post) => {
+    return (post.blogName || post.title || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  };
+
   return (
     <>
       <Helmet>
@@ -104,32 +111,37 @@ const Category = () => {
                 .filter((post, idx, arr) =>
                   post._id ? arr.findIndex(p => p._id === post._id) === idx : true
                 )
-                .map((post, idx) => (
-                  <div key={post._id || idx} className="bg-white rounded-xl shadow p-4 mb-4 hover:shadow-lg transition flex flex-col">
-                    {post.thumbnail && (
-                      <img src={post.thumbnail} alt={post.title}
-                        className="w-full h-40 object-fill rounded mb-2" />
-                    )}
-                    <div className="text-xs text-blue-500 mb-1">{post.category}</div>
-                    <h3 className="text-lg font-bold mb-1">{post.title}</h3>
-                    {post.subtitle && <div className="text-gray-500 text-sm mb-1 hidden">{post.subtitle}</div>}
-                    <p className="text-gray-700 mb-2 line-clamp-3">
-                      {post.content.replace(/<[^>]+>/g, '')}
-                    </p>
-                    <button
-                      className="flex cursor-pointer text-gray-600 hover:text-gray-800 font-medium"
-                      onClick={e => { e.stopPropagation(); navigate(`/viewpost/${post._id}`); }}
-                    >
-                      Read More
-                    </button>
-                    {post.keywords && <div className="text-xs text-gray-400 mb-1 hidden">Keywords: {post.keywords}</div>}
-                    <div className="flex justify-between text-xs text-gray-400 mt-auto">
-                      <span>{post.authorGmail}</span>
-                      <span>{post.createdAt ? new Date(post.createdAt).toLocaleDateString() : ''}</span>
+                .map((post, idx) => {
+                  const slug = generateSlug(post);
+                  return (
+                    <div key={post._id || idx} className="bg-white rounded-xl shadow p-4 mb-4 hover:shadow-lg transition flex flex-col">
+                      {post.thumbnail && (
+                        <img src={post.thumbnail} alt={post.title}
+                          className="w-full h-40 object-fill rounded mb-2" />
+                      )}
+                      <div className="text-xs text-blue-500 mb-1">{post.category}</div>
+                      <h3 className="text-lg font-bold mb-1">{post.title}</h3>
+                      {post.subtitle && <div className="text-gray-500 text-sm mb-1 hidden">{post.subtitle}</div>}
+                      <p className="text-gray-700 mb-2 line-clamp-3">
+                        {post.content.replace(/<[^>]+>/g, '')}
+                      </p>
+                      <button
+                        className="text-blue-600 mt-1 w-full bg-blue-50 text-sm font-medium py-1 rounded-lg hover:bg-blue-100 transition"
+                        onClick={e => { 
+                          e.stopPropagation(); 
+                          navigate(`/blog/${slug}`);
+                        }}
+                      >
+                        Read More
+                      </button>
+                      {post.keywords && <div className="text-xs text-gray-400 mb-1 hidden">Keywords: {post.keywords}</div>}
+                      <div className="flex justify-between text-xs text-gray-400 mt-auto">
+                        <span>{post.authorGmail}</span>
+                        <span>{post.createdAt ? new Date(post.createdAt).toLocaleDateString() : ''}</span>
+                      </div>
                     </div>
-
-                  </div>
-                ))}
+                  );
+                })}
             </div>
           ) : (
             <div className="flex text-left flex-col items-center justify-center py-16">
