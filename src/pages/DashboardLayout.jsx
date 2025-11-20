@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import { FaRegUser } from "react-icons/fa6";
 import { BiRepost } from "react-icons/bi";
 import { IoCreateOutline } from "react-icons/io5";
-import { MdOutlineDashboard } from "react-icons/md";
+import { MdOutlineDashboard, MdFeedback } from "react-icons/md";
 import { FaUsersCog } from "react-icons/fa";
 import Spinner from "../components/Spinner";
 
@@ -28,6 +28,7 @@ const DashboardLayout = ({ children }) => {
     { name: "Create Post", to: "/post", icon: <IoCreateOutline /> },
     { name: "Manage Posts", to: "/managepost", icon: <BiRepost /> },
     { name: "All Users", to: "/users", icon: <FaUsersCog /> },
+    { name: "Feedback", to:"/allfeedbacks", icon:<MdFeedback />},
     { name: "Profile", to: "/profile", icon: <FaRegUser /> },
   ];
 
@@ -36,7 +37,7 @@ const DashboardLayout = ({ children }) => {
   useEffect(() => {
     const storedEmail = localStorage.getItem("authEmail");
     if (storedEmail) {
-      fetch(`https://blog-website-backend-wcn7.onrender.com/api/userinfo?email=${storedEmail}`)
+      fetch(`http://localhost:5000/api/userinfo?email=${storedEmail}`)
         .then((res) => res.json())
         .then((data) => {
           if (!data.error) setUser(data);

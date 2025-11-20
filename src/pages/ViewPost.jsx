@@ -37,7 +37,7 @@ const ViewPost = () => {
 
     const fetchPost = async () => {
       try {
-        const res = await fetch("https://blog-website-backend-wcn7.onrender.com/api/posts");
+        const res = await fetch("http://localhost:5000/api/posts");
         if (!res.ok) throw new Error("Failed to fetch posts");
         const data = await res.json();
 
@@ -68,7 +68,38 @@ const ViewPost = () => {
     fetchPost();
   }, [blogName]);
 
-  // ✅ Adsterra Ad Script
+  // ============================
+  // ✅ SOCIAL ADS SCRIPT
+  // ============================
+  useEffect(() => {
+    console.log("🟦 Social Ads: Injecting script...");
+
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src =
+      "//pl28095812.effectivegatecpm.com/cb/72/bc/cb72bcd46376fddc905cab7f7f53326e.js";
+    script.async = true;
+
+    script.onload = () => {
+      console.log("🟩 Social Ads: Script loaded successfully!");
+    };
+
+    script.onerror = () => {
+      console.error("❌ Social Ads: Failed to load script!");
+    };
+
+    document.body.appendChild(script);
+    console.log("🟨 Social Ads: Script appended to <body>");
+
+    return () => {
+      console.log("🟧 Social Ads: Cleaning up script...");
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  // ============================
+  // Existing Adsterra Banner
+  // ============================
   useEffect(() => {
     if (adRef.current) {
       adRef.current.innerHTML = "";
@@ -96,68 +127,66 @@ const ViewPost = () => {
     <>
       <Helmet>
         <title>
-          {post ? `${post.title} | trendyblogs` : "View Post | trendyblogs"}
+          {post
+            ? `${post.title} | trendyblogs`
+            : "View Post | trendyblogs"}
         </title>
-        <meta
-          name="description"
-          content={
-            post
-              ? post.subtitle ||
-                `Read "${post.title}" on trendyblogs. Explore insights, stories, and ideas in the ${post.category} category.`
-              : "Read detailed blog posts on trendyblogs."
-          }
-        />
-        <meta
-          name="keywords"
-          content={
-            post
-              ? post.keywords || "blog, post, article, trendyblogs"
-              : "blog, post, article, trendyblogs"
-          }
-        />
-        <meta
-          property="og:title"
-          content={post ? `${post.title} | trendyblogs` : "View Post | trendyblogs"}
-        />
-        <meta
-          property="og:description"
-          content={
-            post
-              ? post.subtitle || `Read "${post.title}" on trendyblogs.`
-              : "Explore insightful articles on trendyblogs."
-          }
-        />
+
+        {post && (
+          <meta
+            name="description"
+            content={
+              post.subtitle ||
+              `Read "${post.title}" on trendyblogs.`
+            }
+          />
+        )}
+
+        {post && (
+          <meta
+            property="og:title"
+            content={`${post.title} | trendyblogs`}
+          />
+        )}
+
+        {post && (
+          <meta
+            property="og:description"
+            content={
+              post.subtitle ||
+              `Read "${post.title}" on trendyblogs.`
+            }
+          />
+        )}
+
         <meta property="og:type" content="article" />
-        <meta
-          property="og:url"
-          content={
-            post
-              ? `https://trendyblogs.site/blog/${(post.blogName || post.title || "")
-                  .toLowerCase()
-                  .replace(/[^a-z0-9]+/g, "-")
-                  .replace(/^-+|-+$/g, "")}`
-              : "https://trendyblogs.site/blog"
-          }
-        />
-        <link
-          rel="canonical"
-          href={
-            post
-              ? `https://trendyblogs.site/blog/${(post.blogName || post.title || "")
-                  .toLowerCase()
-                  .replace(/[^a-z0-9]+/g, "-")
-                  .replace(/^-+|-+$/g, "")}`
-              : "https://trendyblogs.site/blog"
-          }
-        />
-        <link rel="canonical" href="https://trendyblogs.site/" />
-        <meta name="robots" content="index, follow" />
-        <link
-          rel="alternate"
-          href={`https://trendyblogs.site${window.location.pathname}`}
-          hreflang="en"
-        />
+
+        {post && (
+          <meta
+            property="og:url"
+            content={`https://trendyblogs.site/blog/${(post.blogName ||
+              post.title ||
+              "")
+              .toLowerCase()
+              .replace(/[^a-z0-9]+/g, "-")
+              .replace(/^-+|-+$/g, "")}`}
+          />
+        )}
+
+        {/* ❗ ONLY ONE CANONICAL TAG — FIXED */}
+        {post && (
+          <link
+            rel="canonical"
+            href={`https://trendyblogs.site/blog/${(post.blogName ||
+              post.title ||
+              "")
+              .toLowerCase()
+              .replace(/[^a-z0-9]+/g, "-")
+              .replace(/^-+|-+$/g, "")}`}
+          />
+        )}
       </Helmet>
+
 
       <Navbar />
       <div className="flex flex-col items-center px-4 sm:px-6">
@@ -320,10 +349,10 @@ const ViewPost = () => {
                 )}
               </div>
 
-              {/* ✅ Fixed Adsterra Ad Banner */}
+              {/* Adsterra Banner */}
               <div
                 ref={adRef}
-                className="flex justify-center items-center my-5 border border-gray-200 rounded-lg overflow-hidden"
+                className="flex justify-center items-center my-5  rounded-lg overflow-hidden"
                 style={{ minHeight: "60px" }}
               ></div>
             </aside>

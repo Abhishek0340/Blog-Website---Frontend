@@ -16,8 +16,8 @@ import Support from "./pages/Support";
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
 import AllUsers from "./Admin/AllUsers";
-
-
+import Feedback from "./pages/Feedback"
+import AllFeedback from "./Admin/AllFeedback"
 import Demo from "./components/Demo";
 
 const App = () => {
@@ -26,6 +26,7 @@ const App = () => {
       <Router>
         <Routes>
           {/* ✅ General Routes */}
+          <Route path="/feedback" element={<Feedback />} />
           <Route path="/demo" element={<Demo />} />
           <Route path="/" element={<Home />} />
           <Route path="/category/:name" element={<Category />} />
@@ -52,6 +53,14 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <AllUsers />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/allfeedbacks"
+            element={
+              <ProtectedRoute>
+                <AllFeedback />
               </ProtectedRoute>
             }
           />

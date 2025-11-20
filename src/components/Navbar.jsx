@@ -4,7 +4,8 @@ import { FiGrid, FiLogOut, FiHome, FiPlus   } from "react-icons/fi";
 
 const navLinks = [
   { name: "Home", to: "/", icon: '' },
-  { name: "Post", to: "/post", icon: ''},
+  { name: "Create Post", to: "/post", icon: ''},
+  { name: "Feedback", to: "/feedback", icon: ''},
 ];
 
 const Navbar = () => {
