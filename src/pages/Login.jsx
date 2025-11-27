@@ -164,7 +164,7 @@ const Login = () => {
               disabled={loading}
               className="w-full bg-gray-900 text-white font-medium text-base py-2 rounded-md flex items-center justify-center hover:bg-gray-700 transition-colors"
             >
-              {loading ? <Spinner /> : "Login"}
+              {loading ? <div className="w-6 h-6 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div> : "Login"}
             </button>
           </form>
 

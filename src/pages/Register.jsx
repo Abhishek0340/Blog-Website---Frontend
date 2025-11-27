@@ -157,7 +157,7 @@ const Register = () => {
                 htmlFor="password"
                 className="text-gray-700 font-medium text-base"
               >
-                Password
+               Create Password
               </label>
               <input
                 type="password"
@@ -196,12 +196,12 @@ const Register = () => {
 
             {/* Submit */}
             <button
-  type="submit"
-  disabled={loading}
-  className="w-full bg-gray-900 text-white font-medium text-base py-2 rounded-md flex items-center justify-center hover:bg-gray-700 transition-colors"
->
-  {loading ? <Spinner /> : "Sign Up"}
-</button>
+              type="submit"
+              disabled={loading}
+              className="w-full bg-gray-900 text-white font-medium text-base py-2 rounded-md flex items-center justify-center hover:bg-gray-700 transition-colors"
+            >
+              {loading ? <div className="w-6 h-6 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div> : "Sign Up"}
+            </button>
           </form>
 
           {/* Login Link */}
