@@ -37,7 +37,7 @@ const DashboardLayout = ({ children }) => {
   useEffect(() => {
     const storedEmail = localStorage.getItem("authEmail");
     if (storedEmail) {
-      fetch(`http://localhost:5000/api/userinfo?email=${storedEmail}`)
+      fetch(`https://blog-website-backend-wcn7.onrender.com/api/userinfo?email=${storedEmail}`)
         .then((res) => res.json())
         .then((data) => {
           if (!data.error) setUser(data);

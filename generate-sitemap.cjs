@@ -6,7 +6,7 @@ const axios = require('axios');
 const domain = 'https://trendyblogs.site';
 
 // 🖥️  backend API base URL (for fetching posts)
-const backendApi = 'http://localhost:5000/api/posts';
+const backendApi = 'https://blog-website-backend-wcn7.onrender.com/api/posts';
 
 // Define your static routes
 const staticRoutes = [

@@ -21,7 +21,7 @@ const AllUsers = () => {
     const fetchUsers = async () => {
       try {
         setLoading(true);
-        const res = await fetch("http://localhost:5000/api/register?isAdmin=true");
+        const res = await fetch("https://blog-website-backend-wcn7.onrender.com/api/register?isAdmin=true");
         const data = await res.json();
 
         if (res.ok) {

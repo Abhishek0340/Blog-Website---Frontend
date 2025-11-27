@@ -13,7 +13,7 @@ const AllFeedback = () => {
     const fetchFeedback = async () => {
       try {
         setLoading(true);
-        const res = await axios.get("http://localhost:5000/api/feedback");
+        const res = await axios.get("https://blog-website-backend-wcn7.onrender.com/api/feedback");
         setFeedback(res.data || []);
       } catch (err) {
         setError("Error loading feedback.");

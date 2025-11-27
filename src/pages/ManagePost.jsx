@@ -20,7 +20,7 @@ const ManagePost = () => {
       setLoading(true);
       setError("");
       try {
-        const res = await fetch("http://localhost:5000/api/posts");
+        const res = await fetch("https://blog-website-backend-wcn7.onrender.com/api/posts");
         const data = await res.json();
 
         if (!res.ok) {
@@ -51,7 +51,7 @@ const ManagePost = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this post?")) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/posts/${id}`, {
+      const res = await fetch(`https://blog-website-backend-wcn7.onrender.com/api/posts/${id}`, {
         method: "DELETE",
       });
 

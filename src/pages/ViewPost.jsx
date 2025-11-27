@@ -37,7 +37,7 @@ const ViewPost = () => {
 
     const fetchPost = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/posts");
+        const res = await fetch("https://blog-website-backend-wcn7.onrender.com/api/posts");
         if (!res.ok) throw new Error("Failed to fetch posts");
         const data = await res.json();
 

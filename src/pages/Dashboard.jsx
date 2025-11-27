@@ -19,11 +19,11 @@ const Dashboard = () => {
       setLoading(true);
       try {
         // Fetch all posts
-        const postsRes = await fetch("http://localhost:5000/api/posts");
+        const postsRes = await fetch("https://blog-website-backend-wcn7.onrender.com/api/posts");
         const postsData = await postsRes.json();
 
         // Fetch all registered users (added)
-        const usersRes = await fetch("http://localhost:5000/api/register?isAdmin=true");
+        const usersRes = await fetch("https://blog-website-backend-wcn7.onrender.com/api/register?isAdmin=true");
         const usersData = await usersRes.json();
 
         const categoriesSet = new Set(postsData.map((p) => p.category));

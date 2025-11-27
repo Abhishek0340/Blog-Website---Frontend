@@ -34,7 +34,7 @@ const Post = () => {
     const today = new Date().toISOString().split('T')[0];
 
     if (email) {
-      fetch(`http://localhost:5000/api/userinfo?email=${email}`)
+      fetch(`https://blog-website-backend-wcn7.onrender.com/api/userinfo?email=${email}`)
         .then(res => res.json())
         .then(data => {
           if (!data.error && !(location.state && location.state.editPost)) {
@@ -136,13 +136,13 @@ const Post = () => {
     try {
       let res;
       if (isEditing) {
-        res = await fetch(`http://localhost:5000/api/posts/${editPostId}`, {
+        res = await fetch(`https://blog-website-backend-wcn7.onrender.com/api/posts/${editPostId}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(postData),
         });
       } else {
-        res = await fetch('http://localhost:5000/api/posts', {
+        res = await fetch('https://blog-website-backend-wcn7.onrender.com/api/posts', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(postData),
@@ -350,7 +350,7 @@ const ManagePost = () => {
       setLoading(true);
       setError("");
       try {
-        const res = await fetch("http://localhost:5000/api/posts");
+        const res = await fetch("https://blog-website-backend-wcn7.onrender.com/api/posts");
         const data = await res.json();
 
         if (!res.ok) {
@@ -381,7 +381,7 @@ const ManagePost = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this post?")) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/posts/${id}`, {
+      const res = await fetch(`https://blog-website-backend-wcn7.onrender.com/api/posts/${id}`, {
         method: "DELETE",
       });
 

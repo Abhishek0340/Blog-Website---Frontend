@@ -19,7 +19,7 @@ const Feedback = () => {
         e.preventDefault();
 
         try{
-            const response = await axios.post('http://localhost:5000/api/feedback', form);
+            const response = await axios.post('https://blog-website-backend-wcn7.onrender.com/api/feedback', form);
             setForm({name: '', email: '', message: ''})
             
         }
