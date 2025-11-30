@@ -1,7 +1,7 @@
 {
   "name": "frontend",
   "private": true,
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -49,6 +49,7 @@
     "react-froala-wysiwyg": "^4.7.0",
     "react-helmet": "^6.1.0",
     "react-hook-form": "^7.62.0",
+    "react-hot-toast": "^2.6.0",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.9.1",
     "react-toastify": "^11.0.5",

@@ -3,8 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Helmet } from "react-helmet";
-import Spinner from "../components/Spinner"
-
+import Spinner from "../components/Spinner";
+import toast from "react-hot-toast";
 
 const Register = () => {
   const [loading, setLoading] = useState(false);
@@ -27,21 +27,26 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!form.name || !form.email || !form.password) {
       setError("All fields are required.");
+      toast.error("All fields are required.");
       return;
     }
+
     if (!form.terms) {
       setError("You must accept the Terms and Conditions.");
+      toast.error("You must accept the Terms and Conditions.");
       return;
     }
+
     setError("");
+    setLoading(true);
+
     try {
       const res = await fetch("https://blog-website-backend-wcn7.onrender.com/api/register", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: form.name,
           email: form.email,
@@ -50,21 +55,25 @@ const Register = () => {
       });
 
       const data = await res.json();
+      setLoading(false);
 
       if (!res.ok) {
         setError(data.error || "Registration failed.");
+        toast.error(data.error || "Registration failed.");
         return;
       }
 
       if (data.user) {
-        // ✅ Save backend user response
         localStorage.setItem("authUser", JSON.stringify(data.user));
         localStorage.setItem("authToken", "true");
       }
 
+      toast.success("Registration successful!");
       navigate("/login");
     } catch (err) {
+      setLoading(false);
       setError("Server error. Please try again later.");
+      toast.error("Server error. Please try again later.");
     }
   };
 
@@ -76,24 +85,10 @@ const Register = () => {
           name="description"
           content="Create your trendyblogs account to publish and explore amazing blogs on various topics. Join the community of writers and readers today."
         />
-        <meta
-          name="keywords"
-          content="register, sign up, trendyblogs, blog registration, blogging platform, create account"
-        />
-        <meta property="og:title" content="Sign Up | trendyblogs" />
-        <meta
-          property="og:description"
-          content="Join trendyblogs to share your thoughts, publish blogs, and connect with a vibrant writing community."
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://trendyblogs.site/register" />
-        <link rel="canonical" href="https://trendyblogs.site/register" />
-        <meta name="robots" content="index, follow" />
       </Helmet>
 
       <Navbar />
-      <div className=" flex flex-col items-center bg-gray-50 px-4">
-        {/* Signup Form Container */}
+      <div className="flex flex-col items-center bg-gray-50 px-4">
         <div className="w-full max-w-md mt-10 mb-10 bg-white rounded-xl shadow-md p-8">
           <h2 className="text-center text-2xl font-semibold text-gray-900 mb-5">
             Sign Up
@@ -104,12 +99,8 @@ const Register = () => {
           )}
 
           <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-            {/* Name */}
             <div className="flex flex-col gap-1">
-              <label
-                htmlFor="name"
-                className="text-gray-700 font-medium text-base"
-              >
+              <label htmlFor="name" className="text-gray-700 font-medium text-base">
                 User Name
               </label>
               <input
@@ -124,16 +115,12 @@ const Register = () => {
                 pattern="^[A-Za-z\s]+$"
                 title="Name should only contain letters and spaces."
                 placeholder="Enter your user name"
-                className="w-full px-4 py-2 rounded-md border border-gray-300 bg-gray-100 text-gray-900 text-base focus:outline-none focus:border-gray-700"
+                className="w-full px-4 py-2 rounded-md border border-gray-300 bg-gray-100 text-gray-900"
               />
             </div>
 
-            {/* Email */}
             <div className="flex flex-col gap-1">
-              <label
-                htmlFor="email"
-                className="text-gray-700 font-medium text-base"
-              >
+              <label htmlFor="email" className="text-gray-700 font-medium text-base">
                 Email Address
               </label>
               <input
@@ -145,19 +132,14 @@ const Register = () => {
                 autoComplete="email"
                 required
                 pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
-                title="Please enter a valid email address."
                 placeholder="Enter your email address"
-                className="w-full px-4 py-2 rounded-md border border-gray-300 bg-gray-100 text-gray-900 text-base focus:outline-none focus:border-gray-700"
+                className="w-full px-4 py-2 rounded-md border bg-gray-100 text-gray-900"
               />
             </div>
 
-            {/* Password */}
             <div className="flex flex-col gap-1">
-              <label
-                htmlFor="password"
-                className="text-gray-700 font-medium text-base"
-              >
-               Create Password
+              <label htmlFor="password" className="text-gray-700 font-medium text-base">
+                Create Password
               </label>
               <input
                 type="password"
@@ -168,12 +150,11 @@ const Register = () => {
                 autoComplete="new-password"
                 required
                 minLength={6}
-                placeholder="Enter your password (min 6 characters)"
-                className="w-full px-4 py-2 rounded-md border border-gray-300 bg-gray-100 text-gray-900 text-base focus:outline-none focus:border-gray-700"
+                placeholder="Enter your password"
+                className="w-full px-4 py-2 rounded-md border bg-gray-100 text-gray-900"
               />
             </div>
 
-            {/* Terms */}
             <div className="flex items-center gap-2">
               <input
                 type="checkbox"
@@ -181,35 +162,31 @@ const Register = () => {
                 name="terms"
                 checked={form.terms}
                 onChange={handleChange}
-                className="w-5 h-5 accent-gray-900"
+                className="w-5 h-5"
               />
               <label htmlFor="terms" className="text-gray-700 text-sm">
                 I accept the{" "}
-                <Link
-                  to="#"
-                  className="text-gray-900 underline hover:text-gray-700"
-                >
+                <Link to="#" className="text-gray-900 underline">
                   Terms and Conditions
                 </Link>
               </label>
             </div>
 
-            {/* Submit */}
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gray-900 text-white font-medium text-base py-2 rounded-md flex items-center justify-center hover:bg-gray-700 transition-colors"
+              className="w-full bg-gray-900 text-white py-2 rounded-md flex items-center justify-center"
             >
-              {loading ? <div className="w-6 h-6 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div> : "Sign Up"}
+              {loading ? (
+                <div className="w-6 h-6 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
+              ) : (
+                "Sign Up"
+              )}
             </button>
           </form>
 
-          {/* Login Link */}
           <div className="text-center mt-4">
-            <Link
-              to="/login"
-              className="text-gray-900 font-medium hover:text-gray-700 transition-colors text-sm"
-            >
+            <Link to="/login" className="text-gray-900 font-medium text-sm">
               Already have an account? Login
             </Link>
           </div>

@@ -1,33 +1,40 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { useState } from "react"
+import { useState } from "react";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const Feedback = () => {
-    const [form , setForm] = useState({
-        name : '',
-        email : '',
-        message : ''    
-    })
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
 
-    const handleChange = (e) => {
-        setForm({...form, [e.target.name]: e.target.value});
-    };
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        try{
-            const response = await axios.post('https://blog-website-backend-wcn7.onrender.com/api/feedback', form);
-            setForm({name: '', email: '', message: ''})
-            
-        }
-        catch (error){
-            console.alert('something went wrong')
-        }
-        
+    // Basic validation
+    if (!form.name || !form.email || !form.message) {
+      toast.error("All fields are required");
+      return;
     }
+
+    try {
+      await axios.post("https://blog-website-backend-wcn7.onrender.com/api/feedback", form);
+
+      setForm({ name: "", email: "", message: "" });
+
+      toast.success("Feedback sent successfully!");
+    } catch (error) {
+      toast.error("Something went wrong. Try again!");
+    }
+  };
 
   return (
     <>
@@ -67,7 +74,7 @@ const Feedback = () => {
             <div>
               <label className="text-gray-700 font-medium">Message</label>
               <textarea
-              name="message"
+                name="message"
                 rows="5"
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Write your feedback..."

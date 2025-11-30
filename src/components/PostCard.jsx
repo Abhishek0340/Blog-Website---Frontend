@@ -48,7 +48,7 @@ const PostCard = () => {
       )
       .slice(0, 3);
 
-  const categories = ["nature", "travel", "science", "technology", "finance"];
+  const categories = ["nature", "travel", "science", "technology", "finance", "smart future"];
 
   if (loading)
     return (

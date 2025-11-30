@@ -17,7 +17,7 @@ const initialState = {
   images: [],
 };
 
-const categories = ['Nature', 'Travel', 'Science', 'Technology', 'Finance'];
+const categories = ['Nature', 'Travel', 'Science', 'Technology', 'Finance', 'Smart Future'];
 
 const Post = () => {
   const [form, setForm] = useState(initialState);

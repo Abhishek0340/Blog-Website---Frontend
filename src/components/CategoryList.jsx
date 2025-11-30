@@ -8,6 +8,7 @@ const categories = [
   { name: 'Science', slug: 'science' , icon: "🔬"},
   { name: 'Technology', slug: 'technology',  icon: "💻"},
   { name: 'Finance', slug: 'finance', icon: "₹"},
+  { name: 'Smart Future', slug: 'smart_future', icon: "⚡"}
 ];
 
 

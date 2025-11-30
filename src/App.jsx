@@ -1,6 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 import Home from "./pages/Home";
 import Category from "./pages/Category";
@@ -23,6 +24,7 @@ import Demo from "./components/Demo";
 const App = () => {
   return (
     <>
+    <Toaster position="top-center" />
       <Router>
         <Routes>
           {/* ✅ General Routes */}
